@@ -29,7 +29,7 @@ function Landing() {
               <span className=" text-orangelight ">TRY LaunchWith</span> to make your startup <span className="text-orangelight">REAL!</span>
             </p>
           </p>
-          <Link href="/signup">
+          <Link href="/auth/signup">
             <button className=" bg-orangedark w-fit mb-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
               <p className=" text-white font-semibold">Sign up</p>
             </button>

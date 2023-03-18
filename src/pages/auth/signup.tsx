@@ -1,7 +1,6 @@
 import Logo from "@/components/logo";
-import { AuthContext } from "@/context/authentication.context";
+import useSignup from "@/hooks/useSignup";
 import Link from "next/link";
-import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,8 +12,8 @@ type Inputs = {
   passwordConfirm: string;
 };
 
-function Signin() {
-  const { handleLogin } = useContext(AuthContext);
+function Signup() {
+  const { handleSignup } = useSignup();
 
   const {
     register,
@@ -24,7 +23,17 @@ function Signin() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await handleLogin(data);
+    await handleSignup(data);
+  };
+
+  const validatePasswordMatch = () => {
+    const { password, passwordConfirm } = watch();
+    if (password !== passwordConfirm) {
+      return "Passwords do not match ";
+    }
+    if (passwordConfirm.length < 6) {
+      return "Passwords do not match";
+    }
   };
 
   return (
@@ -44,12 +53,31 @@ function Signin() {
       <div className="flex flex-col  items-center pt-5  bg-bgdark w-full lg:w-1/2 ">
         {/* heading and subheading */}
         <div className="flex flex-col">
-          <h1 className=" text-3xl lg:text-5xl xl:text-6xl font-bold text-greendark py-12  ">Welcome Back !</h1>
-          <h2 className=" text-2xl font-normal text-center text-greendark mt-3 ">Please enter your details</h2>
+          <h1 className=" text-3xl lg:text-5xl xl:text-6xl font-bold text-greendark py-12  ">Welcome to LaunchWith</h1>
+          <h2 className=" text-2xl font-normal text-center text-greendark mt-3 ">Create a new account</h2>
         </div>
         {/* sign up form */}
+
         <div className="flex flex-col w-2/3 lg:w-1/2 relative mt-5 ">
-          <form action="">
+          <form className=" space-y-7">
+            <div className="relative my-3">
+              <input
+                {...register("userName", { required: true })}
+                autoComplete="off"
+                id="userName"
+                name="userName"
+                type="text"
+                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                placeholder="userName "
+              />
+              {errors.userName && <span className=" text-red-400">This field is required</span>}
+              <label
+                htmlFor="userName"
+                className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+              >
+                userName
+              </label>
+            </div>
             <div className="relative my-3">
               <input
                 {...register("email", { required: true })}
@@ -86,16 +114,37 @@ function Signin() {
                 Password
               </label>
             </div>
+            {/* insert confirm pasword here */}
+            <div className="relative my-3">
+              <input
+                {...register("passwordConfirm", { validate: validatePasswordMatch, minLength: 6 })}
+                autoComplete="off"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                type="password"
+                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                placeholder="confirm password"
+              />
+              {/* {errors.passwordConfirm && <span className=" text-red-400">{errors.passwordConfirm.message}</span>} */}
+              {errors.passwordConfirm?.type === "validate" && <p className="text-red-400">{errors.passwordConfirm.message}</p>}
+              {errors.passwordConfirm?.type === "minLength" && <p className="text-red-400">Password must be at least 6 characters long</p>}
+              <label
+                htmlFor="passwordConfirm"
+                className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+              >
+                Confirm Password
+              </label>
+            </div>
           </form>
         </div>
-        <button className=" bg-greendark w-fit mb-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
+        <button className=" bg-greendark w-fit my-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
           <a className=" text-white font-semibold" onClick={handleSubmit(onSubmit)}>
-            Sign In
+            Sign up
           </a>
         </button>
-        <Link href="/signup">
+        <Link href="/auth/signin">
           <p className="font-semibold">
-            Dont have an account? <span className=" text-orangelight ">sign up</span>{" "}
+            Already have an account? <span className=" text-orangelight ">sign in</span>{" "}
           </p>
         </Link>
 
@@ -105,25 +154,11 @@ function Signin() {
         <div className="flex flex-col gap-5 justify-around items-center w-2/3  lg:flex-row lg:w-1/2 ">
           <div className=" flex flex-row gap-3">
             <img src="/icons/free-icon-google-2991148.svg" alt="google-icon" />
-            <p className=" text-greendark text-lg font-medium">Sign in with google</p>
+            <p className=" text-greendark text-lg font-medium">Sign up with google</p>
           </div>
           <div className=" flex flex-row gap-3">
             <img src="/icons/free-icon-linkedin-174857.svg" alt="google-icon" />
-            <p className=" text-greendark text-lg font-medium">Sign in with LinkedIn</p>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-5 mt-10 justify-around items-center w-2/3  lg:flex-row lg:w-3/2 ">
-          <div className=" flex flex-row gap-3">
-            <Link href="signup">
-              <p className=" text-greendark text-lg font-medium">Dont have an account?</p>
-            </Link>
-          </div>
-
-          <div className=" flex flex-row gap-3">
-            <Link href="forgotPassword">
-              <p className=" text-greendark text-lg font-medium">Forget password?</p>
-            </Link>
+            <p className=" text-greendark text-lg font-medium">Sign up with LinkedIn</p>
           </div>
         </div>
       </div>
@@ -131,4 +166,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default Signup;
