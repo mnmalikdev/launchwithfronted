@@ -1,6 +1,7 @@
 import Logo from "@/components/logo";
-import useLogin from "@/hooks/useLogin";
+import { AuthContext } from "@/context/authentication.context";
 import Link from "next/link";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +14,7 @@ type Inputs = {
 };
 
 function Signin() {
-  const { handleSignin } = useLogin();
+  const { handleLogin } = useContext(AuthContext);
 
   const {
     register,
@@ -23,7 +24,7 @@ function Signin() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await handleSignin(data);
+    await handleLogin(data);
   };
 
   return (
