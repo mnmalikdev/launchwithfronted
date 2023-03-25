@@ -1,0 +1,72 @@
+const categories = [
+  {
+    name: "Audio/Music",
+    subcategories: [
+      "Audio Logo",
+      "Beat Making",
+      "Dj mixing",
+      "Mixing & Mastering",
+      "Producer & Composers",
+      "Sound Design",
+      "Vocal Tuning",
+      "Voice Over",
+    ],
+  },
+  {
+    name: "Design",
+    subcategories: [
+      "App Design",
+      "Bussiness Cards",
+      "Flyer Design",
+      "Font & Typography",
+      "Game Art",
+      "Icon Design",
+      "Illustration",
+      "Logo Design",
+      "NFT Design",
+      "Pattern Design",
+      "Social Media Design",
+      "T-Shirt & Merchandise",
+      "UI/UX Design",
+      "Website Design",
+      "Web Banner",
+    ],
+  },
+  {
+    name: "Programming/Tech",
+    subcategories: [
+      "Chatbots",
+      "Blockchain & Crypto currency",
+      "Cybersecurity & Data Protection",
+      "Desktop Application",
+      "E-commerce Development",
+      "Electronics Engineering",
+      "Game Development",
+      "Mobile Apps",
+      "User Testing",
+      "NFT Development",
+      "Website Builder",
+      "Web Programming",
+    ],
+  },
+  {
+    name: "Video",
+    subcategories: [
+      "Animated GIFs",
+      "Character Animation",
+      "Visual Effect",
+      "Logo Animation",
+      "NFT Animation",
+      "Video Editing",
+      "Short Video Ads",
+      "Mobile Apps",
+      "Website Animation",
+    ],
+  },
+  {
+    name: "Writing",
+    subcategories: ["Business Copy", "Content Writing & Editing", "Sales & Marketing", "Storytelling", "Translation"],
+  },
+];
+
+export default categories;
