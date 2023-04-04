@@ -1,6 +1,7 @@
 import Logo from "@/components/logo";
 import RoleChoice from "@/components/roleChoice";
 import SkillsChoice from "@/components/skillsChoice";
+import Link from "next/link";
 import useStepper from "./hooks/useStepper";
 const ProfileCompletion = () => {
   const { step, forward } = useStepper();
@@ -10,7 +11,12 @@ const ProfileCompletion = () => {
         <Logo textColor="primary" />
       </div>
       <div className="flex flex-col  items-center justify-center mt-12 px-5 w-full ">
-        <h1 className=" text-3xl  md:text-5xl font-bold text-center">What do you want to be?</h1>
+        {step === 0 ? (
+          <h1 className=" text-3xl  md:text-5xl font-bold text-center">What do you want to be?</h1>
+        ) : (
+          <h1 className=" text-3xl  md:text-5xl font-bold text-center">What Skills Do You Have?</h1>
+        )}
+
         <div className=" w-full flex flex-col gap-4 md:w-4/5 md:h-96 lg:w-2/5 lg:h-5/6 py-8 my-10 bg-bgbox items-center justify-center rounded-lg shadow-md">
           <div className=" flex flex-row  gap-3 w-3/4 ">
             {step === 0 ? (
@@ -28,10 +34,18 @@ const ProfileCompletion = () => {
 
           {step === 0 ? <RoleChoice /> : <SkillsChoice />}
         </div>
-
-        <button className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4" onClick={forward}>
-          <p className=" text-white text-center font-semibold text-2xl">Next</p>
-        </button>
+        {step === 1 && (
+          <Link href="/profile/dashboard">
+            <button className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4" onClick={forward}>
+              <p className=" text-white text-center font-semibold text-2xl">Next</p>
+            </button>
+          </Link>
+        )}
+        {step === 0 && (
+          <button className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4" onClick={forward}>
+            <p className=" text-white text-center font-semibold text-2xl">Next</p>
+          </button>
+        )}
       </div>
     </div>
   );

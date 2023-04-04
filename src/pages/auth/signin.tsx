@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import Spinner from "@/components/spinner";
 import { AuthContext } from "@/context/authentication.context";
 import Link from "next/link";
 import { useContext } from "react";
@@ -14,12 +15,11 @@ type Inputs = {
 };
 
 function Signin() {
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, isLoading } = useContext(AuthContext);
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -57,7 +57,10 @@ function Signin() {
                 id="email"
                 name="email"
                 type="email"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="Password"
               />
               {errors.email && <span className=" text-red-400">This field is required</span>}
@@ -75,7 +78,10 @@ function Signin() {
                 id="password"
                 name="password"
                 type="password"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="Password"
               />
               {errors.password && <p className=" text-red-400">Password is required and must be at least 6 characters long</p>}
@@ -88,7 +94,8 @@ function Signin() {
             </div>
           </form>
         </div>
-        <button className=" bg-greendark w-fit mb-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
+        <button className=" flex flex-row bg-greendark w-fit mb-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
+          {isLoading && <Spinner />}
           <a className=" text-white font-semibold" onClick={handleSubmit(onSubmit)}>
             Sign In
           </a>

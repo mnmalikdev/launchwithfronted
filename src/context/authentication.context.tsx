@@ -51,13 +51,14 @@ function AuthContextProvider({ children }: any) {
           setRole(details.role);
           setIsAuthenticated(true);
           setIsLoading(false);
-          redirect.push("/dashboard");
+          redirect.push("/profile/dashboard");
         }
         console.log("USER DETAILS ", userDetails);
       }
     } catch (error: any) {
       setError(error?.response?.data?.message);
       toast(error?.response?.data?.message);
+      setIsLoading(false);
     }
   };
 

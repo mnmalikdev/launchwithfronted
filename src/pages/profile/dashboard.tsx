@@ -1,28 +1,23 @@
-import { AuthContext } from "@/context/authentication.context";
-import { useContext } from "react";
+import Logo from "@/components/logo";
+import ProfileCard from "@/components/profileCard";
+import ProfileDetails from "@/components/profileDetails";
 
-function Dashboard() {
-  const { userName, email, role, handleLogout, isAuthenticated } = useContext(AuthContext);
-
+const Dashboard = () => {
   return (
-    <div className="flex flex-col w-screen min-h-screen md:flex-col overflow-hidden">
-      {isAuthenticated ? (
-        <div className="flex h-full flex-col justify-center items-center bg-greendark text-orangedark">
-          <div>
-            {userName && <p className="text-lg">welcome {userName}</p>}
-            {email && <p className="text-lg">email {email}</p>}
-            {role && <p className="text-lg">role {role}</p>}
-          </div>
-
-          <button className="bg-orangedark w-fit mb-4 px-8 py-6 rounded-2xl md:px-6 md:py-2" onClick={handleLogout}>
-            <a className="text-white font-semibold">Logout</a>
-          </button>
+    <div className="flex flex-col bg-bgdark w-screen min-h-screen overflow-hidden ">
+      <div className=" flex flex-col w-full h-full justify-center items-center bg-primary px-8 py-4">
+        <Logo textColor="greendark" />
+        <div className="flex flex-col justify-center items-center ">
+          <img src="/icons/cover_upload.svg" alt="upload-cover" />
+          <p className="text-white font-semibold">Add Image</p>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      </div>
+      <div className="flex flex-row mt-5 ">
+        <ProfileCard />
+        <ProfileDetails />
+      </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
