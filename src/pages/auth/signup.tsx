@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import Spinner from "@/components/spinner";
 import useSignup from "@/hooks/useSignup";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -13,7 +14,7 @@ type Inputs = {
 };
 
 function Signup() {
-  const { handleSignup } = useSignup();
+  const { handleSignup, isLoading } = useSignup();
 
   const {
     register,
@@ -67,7 +68,10 @@ function Signup() {
                 id="userName"
                 name="userName"
                 type="text"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="userName "
               />
               {errors.userName && <span className=" text-red-400">This field is required</span>}
@@ -85,7 +89,10 @@ function Signup() {
                 id="email"
                 name="email"
                 type="email"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="Password"
               />
               {errors.email && <span className=" text-red-400">This field is required</span>}
@@ -103,7 +110,10 @@ function Signup() {
                 id="password"
                 name="password"
                 type="password"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="Password"
               />
               {errors.password && <p className=" text-red-400">Password is required and must be at least 6 characters long</p>}
@@ -122,7 +132,10 @@ function Signup() {
                 id="passwordConfirm"
                 name="passwordConfirm"
                 type="password"
-                className="peer bg-transparent border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600"
+                disabled={isLoading ? true : false}
+                className={`peer ${
+                  isLoading ? " bg-gray-200 text-gray-300" : "bg-transparent"
+                } border-b-2 border-greendark placeholder-transparent h-10 w-full   text-gray-900 focus:outline-none focus:borer-rose-600`}
                 placeholder="confirm password"
               />
               {/* {errors.passwordConfirm && <span className=" text-red-400">{errors.passwordConfirm.message}</span>} */}
@@ -137,11 +150,14 @@ function Signup() {
             </div>
           </form>
         </div>
-        <button className=" bg-greendark w-fit my-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
+
+        <button className=" flex flex-row gap-3 bg-greendark w-fit my-4 px-8 py-3 rounded-2xl md:px-6 md:py-2  ">
+          {isLoading && <Spinner />}
           <a className=" text-white font-semibold" onClick={handleSubmit(onSubmit)}>
             Sign up
           </a>
         </button>
+
         <Link href="/auth/signin">
           <p className="font-semibold">
             Already have an account? <span className=" text-orangelight ">sign in</span>{" "}

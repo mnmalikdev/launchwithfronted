@@ -20,6 +20,7 @@ module.exports = {
         greensemidark: "#2f3b1c",
         bgdark: "#D9D9D9",
         bglight: "#EBEFE3",
+        bgbox: "#b2bda0",
       },
     },
   },
