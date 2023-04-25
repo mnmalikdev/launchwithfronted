@@ -1,23 +1,23 @@
 import { FC } from "react";
-
 interface Request {
   userName: string;
   profilePicUrl: string;
   title: string;
   description: string;
+  onProfilePreview: () => void; // added prop type
 }
 
-const Request: FC<Request> = ({ profilePicUrl, userName, title, description }) => {
+const Request: FC<Request> = ({ profilePicUrl, userName, title, description, onProfilePreview }) => {
   return (
     <div className="flex flex-col bg-white rounded-lg p-4 shadow-lg w-11/12 md:w-full lg:w-3/4">
-      <div className="flex flex-row gap-1">
+      <div className="flex flex-row gap-1" onClick={onProfilePreview}>
         <img src={profilePicUrl} width={50} height={50} alt="profile-pic-url" />
         <span>
           <p className=" text-base text-greendark">{userName}</p>
-          {/* TODO: replace later with duration of request from now. */}
           <p className="text-sm">7d</p>
         </span>
       </div>
+
       <div className="flex flex-col mt-3">
         <h3 className=" text-2xl text-greendark font-bold">{title}</h3>
         <p className=" text-lg text-greendark border-2 border-greendark p-2 my-3 max-h-96 overflow-auto">{description}</p>

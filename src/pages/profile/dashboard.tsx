@@ -28,7 +28,6 @@ const Dashboard = () => {
         {selectedMenuItem === "My Projects" && <MyProjects />}
         {selectedMenuItem === "Discovery" && <Discovery />}
         {selectedMenuItem === "Liked Projects" && <LikedProjects />}
-        {/* {selectedMenuItem === "Interested Contributers" && <InterestedContributer />} */}
       </div>
     </div>
   );
