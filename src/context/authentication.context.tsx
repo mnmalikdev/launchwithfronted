@@ -43,6 +43,7 @@ function AuthContextProvider({ children }: any) {
         const userDetails = window.localStorage.getItem("user");
         if (userDetails) {
           const details = JSON.parse(userDetails);
+          console.log("tokens", response?.data?.tokens);
           console.log("userdetails", userDetails);
           console.log("user detais", details);
           setUserId(details.userId);

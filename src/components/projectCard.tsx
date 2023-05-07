@@ -9,7 +9,7 @@ interface Props {
 
 const ProjectCard: React.FC<Props> = ({ title, category, startDate }) => {
   return (
-    <div className="bg-primary w-fit rounded-md shadow-md px-10 py-12 flex flex-col justify-center items-center hover:bg-orangelight hover:cursor-pointer hover:-translate-y-2 transition duration-300 ease-in-out">
+    <div className="bg-primary w-fit max-w-sm rounded-md shadow-md px-10 py-12 flex flex-col justify-center items-center hover:bg-orangelight hover:cursor-pointer hover:-translate-y-2 transition duration-300 ease-in-out">
       {title ? (
         <>
           <h3 className="text-xl text-white font-semibold pb-4 ">{title}</h3>

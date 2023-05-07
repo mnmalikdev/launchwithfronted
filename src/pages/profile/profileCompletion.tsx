@@ -1,10 +1,17 @@
 import Logo from "@/components/logo";
 import RoleChoice from "@/components/roleChoice";
 import SkillsChoice from "@/components/skillsChoice";
-import Link from "next/link";
 import useStepper from "./hooks/useStepper";
+import useUpdateProfile from "./hooks/useUpdateProfile";
 const ProfileCompletion = () => {
   const { step, forward } = useStepper();
+  const { role, handleAssignRole, isLoading, error } = useUpdateProfile();
+
+  const handleRoleSubmit = async (selectedRole: any) => {
+    await handleAssignRole({ role: selectedRole });
+    forward();
+  };
+
   return (
     <div className=" flex flex-col bg-bglight w-screen min-h-screen overflow-hidden  ">
       <div className=" flex flex-col items-center ">
@@ -32,20 +39,9 @@ const ProfileCompletion = () => {
             )}
           </div>
 
-          {step === 0 ? <RoleChoice /> : <SkillsChoice />}
+          {step === 0 && <RoleChoice onSubmit={handleRoleSubmit} />}
+          {step === 1 && <SkillsChoice />}
         </div>
-        {step === 1 && (
-          <Link href="/profile/dashboard">
-            <button className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4" onClick={forward}>
-              <p className=" text-white text-center font-semibold text-2xl">Next</p>
-            </button>
-          </Link>
-        )}
-        {step === 0 && (
-          <button className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4" onClick={forward}>
-            <p className=" text-white text-center font-semibold text-2xl">Next</p>
-          </button>
-        )}
       </div>
     </div>
   );
