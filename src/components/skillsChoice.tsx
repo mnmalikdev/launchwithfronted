@@ -1,22 +1,29 @@
-import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross1 } from "react-icons/rx";
 import categories from "./../data/data";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 
 const SkillsChoice = () => {
   const { register, handleSubmit } = useForm();
   const { handleSkillsSubmit } = useUpdateProfile();
   const [selectedCategoryIdx, setSelectedCategoryIdx] = useState<number>(-1);
-  const [selectedSubCategories, setSelectedSubCategories] = useState<Array<{ category: string; subcategory: string }>>([]);
+  const [selectedSubCategories, setSelectedSubCategories] = useState<
+    Array<{ category: string; subcategory: string }>
+  >([]);
 
   const handleSubCategorySelect = (subcategory: string) => {
     const category = categories[selectedCategoryIdx].name;
-    const index = selectedSubCategories.findIndex((item) => item.subcategory === subcategory);
+    const index = selectedSubCategories.findIndex(
+      (item) => item.subcategory === subcategory
+    );
     if (index === -1) {
       // subcategory not found in selectedSubCategories, add it
-      setSelectedSubCategories([...selectedSubCategories, { category, subcategory }]);
+      setSelectedSubCategories([
+        ...selectedSubCategories,
+        { category, subcategory },
+      ]);
     } else {
       // subcategory found in selectedSubCategories, remove it
       const updatedSubCategories = [...selectedSubCategories];
@@ -43,14 +50,22 @@ const SkillsChoice = () => {
       <div className="flex flex-col justify-center items-center w-full py-10">
         <input
           type="text"
-          value={selectedSubCategories.length > 0 ? selectedSubCategories.map((item) => item.subcategory).join(", ") : ""}
+          value={
+            selectedSubCategories.length > 0
+              ? selectedSubCategories.map((item) => item.subcategory).join(", ")
+              : ""
+          }
           placeholder="Selected subcategories"
           className="border-greendark border-2 w-4/5 bg-transparent rounded-sm text-white py-2 px-4 my-5 placeholder:text-greendark"
         />
         {selectedCategoryIdx === -1 ? (
           <div className="flex flex-wrap justify-around items-center w-full my-5 gap-8">
             {categories.map((category, index) => (
-              <p key={index} className="text-white text-lg font-semibold cursor-pointer" onClick={() => setSelectedCategoryIdx(index)}>
+              <p
+                key={index}
+                className="text-white text-lg font-semibold cursor-pointer"
+                onClick={() => setSelectedCategoryIdx(index)}
+              >
                 {category.name}
               </p>
             ))}
@@ -65,26 +80,34 @@ const SkillsChoice = () => {
               </div>
 
               <div className="flex flex-wrap ">
-                {categories[selectedCategoryIdx].subcategories.map((subcategory, index) => (
-                  <button
-                    key={index}
-                    className={`bg-bglight text-sm text-black font-semibold py-1 px-2 rounded-full mx-2 my-1 hover:bg-bgdark focus:outline-none ${
-                      selectedSubCategories.find((item) => item.subcategory === subcategory) ? "bg-primary" : ""
-                    }`}
-                    onClick={() => handleSubCategorySelect(subcategory)}
-                  >
-                    <span className="flex items-center gap-2">
-                      {selectedSubCategories.find((item) => item.subcategory === subcategory) && (
-                        <RxCross1
-                          size={23}
-                          className="ml-2 bg-bglight p-1 rounded-full cursor-pointer"
-                          onClick={() => handleSubCategorySelect(subcategory)}
-                        />
-                      )}
-                      <span>{subcategory}</span>
-                    </span>
-                  </button>
-                ))}
+                {categories[selectedCategoryIdx].subcategories.map(
+                  (subcategory, index) => (
+                    <button
+                      key={index}
+                      className={`bg-bglight text-sm text-black font-semibold py-1 px-2 rounded-full mx-2 my-1 hover:bg-bgdark focus:outline-none ${
+                        selectedSubCategories.find(
+                          (item) => item.subcategory === subcategory
+                        )
+                          ? "bg-primary"
+                          : ""
+                      }`}
+                      onClick={() => handleSubCategorySelect(subcategory)}
+                    >
+                      <span className="flex items-center gap-2">
+                        {selectedSubCategories.find(
+                          (item) => item.subcategory === subcategory
+                        ) && (
+                          <RxCross1
+                            size={23}
+                            className="ml-2 bg-bglight p-1 rounded-full cursor-pointer"
+                            onClick={() => handleSubCategorySelect(subcategory)}
+                          />
+                        )}
+                        <span>{subcategory}</span>
+                      </span>
+                    </button>
+                  )
+                )}
               </div>
             </div>
             <div className=" flex justify-center items-center mt-10">
@@ -101,8 +124,13 @@ const SkillsChoice = () => {
           </>
         )}
         <Link href="/profile/dashboard">
-          <button type="submit" className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4">
-            <p className=" text-white text-center font-semibold text-2xl">Next</p>
+          <button
+            type="submit"
+            className=" bg-orangedark w-fit shadow-md mb-4 px-8 py-3 rounded-lg md:px-10 md:py-4"
+          >
+            <p className=" text-white text-center font-semibold text-2xl">
+              Next
+            </p>
           </button>
         </Link>
       </div>

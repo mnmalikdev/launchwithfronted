@@ -1,5 +1,5 @@
 // TODO : INCORPORATE LATER WHILE CLEANING CODE !!!
-import useProjects from "@/pages/profile/hooks/useProjects";
+import useProjects from "@/hooks/useProjects";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TiEdit } from "react-icons/ti";
@@ -12,8 +12,17 @@ interface Props {
   projectId?: string;
 }
 
-const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, projectId }) => {
-  const { projects, isLoading, handleCreateProjectSubmit, convertTimeStampToDate } = useProjects();
+const EditProjectForm: FC<Props> = ({
+  displayViewModal,
+  toggleViewProjectModal,
+  projectId,
+}) => {
+  const {
+    projects,
+    isLoading,
+    handleCreateProjectSubmit,
+    convertTimeStampToDate,
+  } = useProjects();
   const [editMode, setEditMode] = useState(false);
   const {
     handleSubmit,
@@ -61,19 +70,28 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
   };
 
   return (
-    <Modal isOpen={displayViewModal} onClose={toggleViewProjectModal} bgColor="bg-white">
+    <Modal
+      isOpen={displayViewModal}
+      onClose={toggleViewProjectModal}
+      bgColor="bg-white"
+    >
       <form>
         <div className="flex flex-col gap-4 w-full ">
           <TiEdit onClick={toggleEditMode} size={20} />
           {/* project name */}
           <div className="w-full ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="name"
+            >
               Project Title
             </label>
             <input
               key={`${Math.floor(Math.random() * 1000)}-min`}
               className={`appearance-none block w-full ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject?.name}
@@ -84,13 +102,18 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project industries */}
           <div className="w-full ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="industry">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="industry"
+            >
               Project industry
             </label>
             <input
               key={`${Math.floor(Math.random() * 1000)}-min`}
               className={`appearance-none block w-full ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject?.industry
@@ -105,13 +128,18 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project category */}
           <div className="w-full ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="category">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="category"
+            >
               Project category
             </label>
             <input
               key={`${Math.floor(Math.random() * 1000)}-min`}
               className={`appearance-none block w-full ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject?.category}
@@ -122,13 +150,18 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project stage */}
           <div className="w-full ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="stage">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="stage"
+            >
               Project stage
             </label>
             <input
               key={`${Math.floor(Math.random() * 1000)}-min`}
               className={`appearance-none block w-full ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject?.stage}
@@ -139,12 +172,17 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project start date */}
           <div className="w-full ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="startDate">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="startDate"
+            >
               Project start date
             </label>
             <input
               className={`appearance-none block w-full ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={convertTimeStampToDate(selectedProject?.startDate)}
@@ -155,12 +193,17 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project basic info */}
           <div className="w-full py-3 ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="basicInfo">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="basicInfo"
+            >
               Basic Info
             </label>
             <textarea
               className={`appearance-none block w-full h-36 ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject.basicInfo}
@@ -170,12 +213,17 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
 
           {/* project more info */}
           <div className="w-full  ">
-            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="moreInfo">
+            <label
+              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              htmlFor="moreInfo"
+            >
               More Info
             </label>
             <textarea
               className={`appearance-none block w-full h-36 ${
-                !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                !editMode
+                  ? "  bg-zinc-200 text-gray-700"
+                  : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
               defaultValue={selectedProject.moreInfo}
@@ -184,18 +232,22 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
           </div>
 
           <div className="flex flex-col gap-3 py-2  ">
-            <h2 className="text-2xl text-greendark font-semibold ">Interested Contributers</h2>
-            {selectedProject?.contributerInProjects?.map((contributerInProjects) => {
-              return (
-                <InterestedContributer
-                  key={contributerInProjects?.userId}
-                  userId={contributerInProjects?.userId}
-                  email={contributerInProjects?.email}
-                  imgUrl={contributerInProjects?.profileImageUrl}
-                  userName={contributerInProjects?.userName}
-                />
-              );
-            })}
+            <h2 className="text-2xl text-greendark font-semibold ">
+              Interested Contributers
+            </h2>
+            {selectedProject?.contributerInProjects?.map(
+              (contributerInProjects) => {
+                return (
+                  <InterestedContributer
+                    key={contributerInProjects?.userId}
+                    userId={contributerInProjects?.userId}
+                    email={contributerInProjects?.email}
+                    imgUrl={contributerInProjects?.profileImageUrl}
+                    userName={contributerInProjects?.userName}
+                  />
+                );
+              }
+            )}
           </div>
         </div>
         <button

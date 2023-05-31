@@ -1,6 +1,5 @@
 import { AuthContext } from "@/context/authentication.context";
 import { useModal } from "@/hooks/useModal";
-import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
 import { useContext, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { Controller, useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import { FiEdit } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
 import Loader from "./loader";
 import Modal from "./modal";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 interface ProfileCardProps {
   onMenuItemClick: (name: string) => void;
 }
@@ -19,7 +19,13 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
   const { handleSubmit, control, reset } = useForm({ mode: "onChange" });
   const { isOpen, toggleModal } = useModal();
   const fileTypes = ["JPG", "PNG"];
-  const navArray = ["Profile", "My Projects", "Liked Projects", "Discovery", "Messages"];
+  const navArray = [
+    "Profile",
+    "My Projects",
+    "Liked Projects",
+    "Discovery",
+    "Messages",
+  ];
   const [previewUrls, setPreviewUrls] = useState<any>();
 
   const handleClick = (name: string) => {
@@ -116,9 +122,17 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
           <div className="flex flex-col bg-bgbox justify-center items-center h-full min-h-max">
             {previewUrls && (
               <div className="flex flex-col justify-center items-center mb-10">
-                <img src={previewUrls} alt="no-img" className="object-contain max-w-lg max-h-96  " />
+                <img
+                  src={previewUrls}
+                  alt="no-img"
+                  className="object-contain max-w-lg max-h-96  "
+                />
                 <button className="flex flex-row items-center justify-center gap-2 bg-orangedark w-fit my-2 px-4 py-3 rounded-2xl md:px-6 md:py-2">
-                  <img width={35} src="/icons/img_upload.svg" alt="google-icon" />
+                  <img
+                    width={35}
+                    src="/icons/img_upload.svg"
+                    alt="google-icon"
+                  />
                   <p className="text-white font-semibold text-sm">Submit</p>
                 </button>
               </div>
@@ -139,12 +153,20 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
                     onChange(files);
                   }}
                 >
-                  <div className={`flex flex-row justify-start items-center gap-8 px-5 ${previewUrls ? `hidden` : `block`} `}>
+                  <div
+                    className={`flex flex-row justify-start items-center gap-8 px-5 ${
+                      previewUrls ? `hidden` : `block`
+                    } `}
+                  >
                     <button className="flex flex-row items-center justify-center gap-2 bg-orangedark w-fit my-4 px-8 py-3 rounded-2xl  md:px-6 md:py-2">
                       <BiImageAdd className=" text-white" size={25} />
-                      <p className="text-white font-semibold text-sm">Upload Profile Picture</p>
+                      <p className="text-white font-semibold text-sm">
+                        Upload Profile Picture
+                      </p>
                     </button>
-                    <p className="text-md text-gray-400 font-semibold">Profile Picture</p>
+                    <p className="text-md text-gray-400 font-semibold">
+                      Profile Picture
+                    </p>
                   </div>
                 </FileUploader>
               )}

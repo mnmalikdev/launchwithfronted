@@ -1,4 +1,4 @@
-import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 import axios from "axios";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -35,12 +35,24 @@ function AuthContextProvider({ children }: any) {
     setError(null);
     setIsLoading(true);
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/signin`, formData);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/signin`,
+        formData
+      );
       console.log(response);
       if (response?.data?.tokens?.access_token) {
-        window.localStorage.setItem("access_token", response?.data?.tokens?.access_token);
-        window.localStorage.setItem("refresh_token", response?.data?.tokens?.refresh_token);
-        window.localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        window.localStorage.setItem(
+          "access_token",
+          response?.data?.tokens?.access_token
+        );
+        window.localStorage.setItem(
+          "refresh_token",
+          response?.data?.tokens?.refresh_token
+        );
+        window.localStorage.setItem(
+          "user",
+          JSON.stringify(response?.data?.user)
+        );
         const userDetails = window.localStorage.getItem("user");
         if (userDetails) {
           const details = JSON.parse(userDetails);

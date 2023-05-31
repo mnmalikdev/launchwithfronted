@@ -1,5 +1,5 @@
 import { useModal } from "@/hooks/useModal";
-import useProjects from "@/pages/profile/hooks/useProjects";
+import useProjects from "@/hooks/useProjects";
 import React, { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MdDeleteForever, MdEdit } from "react-icons/md";
@@ -17,11 +17,23 @@ interface Props {
   onClick?: () => void;
 }
 
-const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, stage, onClick }) => {
+const ProjectCard: React.FC<Props> = ({
+  projectId,
+  title,
+  category,
+  startDate,
+  stage,
+  onClick,
+}) => {
   const { isOpen, toggleModal } = useModal();
   const [isHovered, setIsHovered] = useState(false);
   const [showContributerModal, setShowContributerModal] = useState(false);
-  const { handleDeleteProject, fetchUserProjects, projects, acceptContributerRequest } = useProjects();
+  const {
+    handleDeleteProject,
+    fetchUserProjects,
+    projects,
+    acceptContributerRequest,
+  } = useProjects();
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -35,7 +47,10 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
     setShowContributerModal((prev) => !prev);
   };
 
-  const handleAcceptContributerRequest = async (projectId: string, userId: string) => {
+  const handleAcceptContributerRequest = async (
+    projectId: string,
+    userId: string
+  ) => {
     const formData = {
       projectId: projectId,
       userId: userId,
@@ -87,7 +102,9 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
             <div className="flex flex-col justify-center items-center w-full">
               <button onClick={onClick}>
                 <AiOutlinePlusCircle className="text-white text-3xl text-center mb-2 w-full" />
-                <p className="text-white text-lg py-5 px-3 font-bold">Add New</p>
+                <p className="text-white text-lg py-5 px-3 font-bold">
+                  Add New
+                </p>
               </button>
             </div>
           )}
@@ -95,7 +112,11 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
       </button>
 
       {/* contributer requests modal */}
-      <Modal isOpen={showContributerModal} onClose={toggleContributorModal} bgColor="bg-white">
+      <Modal
+        isOpen={showContributerModal}
+        onClose={toggleContributorModal}
+        bgColor="bg-white"
+      >
         <div className="flex flex-col gap-8 items-center h-full">
           <p className="text-3xl text-primary">Contributer Requests</p>
           <p>Requests:{projects?.length}</p>
@@ -114,8 +135,12 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
                       alt="profile-avatar"
                     />
                     <div className="flex flex-col justify-start items-start ">
-                      <p className=" text-primary text-lg">{request?.collabRequestedBy?.userName}</p>
-                      <p className="text-primary text-md">{request?.collabRequestedBy?.position}</p>
+                      <p className=" text-primary text-lg">
+                        {request?.collabRequestedBy?.userName}
+                      </p>
+                      <p className="text-primary text-md">
+                        {request?.collabRequestedBy?.position}
+                      </p>
                     </div>
                   </div>
                   <textarea
@@ -127,7 +152,10 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
                   <div className="flex flex-row gap-3">
                     <button
                       onClick={() => {
-                        handleAcceptContributerRequest(project?.projectId, request?.collabRequestedBy?.userId);
+                        handleAcceptContributerRequest(
+                          project?.projectId,
+                          request?.collabRequestedBy?.userId
+                        );
                       }}
                       className="bg-primary text-white py-2 px-4  mt-2 hover:bg-secondary focus:outline-none w-2/12 rounded-md"
                     >
@@ -146,7 +174,9 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
 
       <Modal isOpen={isOpen} onClose={toggleModal} bgColor="bg-primary">
         <div className="flex flex-col gap-8 justify-center items-center h-full">
-          <p className="text-3xl text-white">Are you sure you want to delete this project?</p>
+          <p className="text-3xl text-white">
+            Are you sure you want to delete this project?
+          </p>
           <div className="flex flex-row gap-3">
             <button
               onClick={toggleModal}

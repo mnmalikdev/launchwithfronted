@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 
 // this stepper will control rendering of components in the complete profile stage.

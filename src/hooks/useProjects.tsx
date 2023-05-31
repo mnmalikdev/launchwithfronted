@@ -1,10 +1,13 @@
+"use client";
+
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ProjectContext } from "../context/projectsContext";
 
-function useProjects() {
-  const { projects, updateProjects, fetchUserProjects } = useContext(ProjectContext);
+const useProjects = () => {
+  const { projects, updateProjects, fetchUserProjects } =
+    useContext(ProjectContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,7 +33,9 @@ function useProjects() {
     const month = formattedDate.toLocaleString("default", { month: "long" });
     const year = formattedDate.getFullYear();
 
-    dateString = `${dateNumber}${getOrdinalSuffix(dateNumber)} ${month}, ${year}`;
+    dateString = `${dateNumber}${getOrdinalSuffix(
+      dateNumber
+    )} ${month}, ${year}`;
 
     function getOrdinalSuffix(n: number) {
       const suffixes = ["th", "st", "nd", "rd"];
@@ -59,12 +64,16 @@ function useProjects() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/createProject`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/createProject`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("after creation", response);
         setIsLoading(false);
         toast(`Project created successfully!`);
@@ -84,12 +93,16 @@ function useProjects() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/editProject/${projectId}`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/editProject/${projectId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("after edit", response);
         setIsLoading(false);
         toast(`Project edit successfully!`);
@@ -109,12 +122,15 @@ function useProjects() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/deleteProject/${projectId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/deleteProject/${projectId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response);
         setIsLoading(false);
         toast(`project deleted successfully !`);
@@ -134,12 +150,15 @@ function useProjects() {
       const token = window.localStorage.getItem("access_token");
       const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
       if (token && userDetails) {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/fetchAllProjects`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/fetchAllProjects`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
@@ -219,12 +238,15 @@ function useProjects() {
       const token = window.localStorage.getItem("access_token");
       const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
       if (token && userDetails) {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/fetchLikedProjects`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/fetchLikedProjects`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
@@ -244,12 +266,16 @@ function useProjects() {
       const token = window.localStorage.getItem("access_token");
       const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
       if (token && userDetails) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/sendCollabRequest`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/sendCollabRequest`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
@@ -270,12 +296,16 @@ function useProjects() {
       const token = window.localStorage.getItem("access_token");
       const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
       if (token && userDetails) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}project/addContributer`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/addContributer`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         setIsLoading(false);
         toast("Contributer Added Successfully !");
@@ -318,5 +348,5 @@ function useProjects() {
     sendCollaborationRequest,
     isLoading,
   };
-}
+};
 export default useProjects;

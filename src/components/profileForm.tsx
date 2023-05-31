@@ -1,5 +1,4 @@
 import { useModal } from "@/hooks/useModal";
-import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
 import { useEffect, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { Controller, useForm } from "react-hook-form";
@@ -11,10 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./loader";
 import Modal from "./modal";
 import Tooltip from "./tooltip";
+import useUpdateProfile from "@/hooks/useUpdateProfile";
 
 const ProfileForm = () => {
-  const { handleUpdateProfile, isLoading, userData, deletePortfolioUrl } = useUpdateProfile();
-  const { register, handleSubmit, control, reset, formState, watch, setValue } = useForm({ mode: "onChange" });
+  const { handleUpdateProfile, isLoading, userData, deletePortfolioUrl } =
+    useUpdateProfile();
+  const { register, handleSubmit, control, reset, formState, watch, setValue } =
+    useForm({ mode: "onChange" });
   const bioValue = watch("bio", "");
   const [previewUrls, setPreviewUrls] = useState<any>();
   const [deleteSampleUrl, setDeleteSampleUrl] = useState<string>("");
@@ -86,7 +88,9 @@ const ProfileForm = () => {
         <>
           <Modal isOpen={isOpen} onClose={toggleModal} bgColor="bg-bgbox">
             <div className="flex flex-col justify-center items-center h-full ">
-              <p className=" text-white text-2xl">Are you sure you want to delete this portfolio sample?</p>
+              <p className=" text-white text-2xl">
+                Are you sure you want to delete this portfolio sample?
+              </p>
               <div className="flex flex-row gap-3 py-8">
                 <button
                   type="submit"
@@ -108,7 +112,11 @@ const ProfileForm = () => {
                   }}
                 >
                   {" "}
-                  <MdDeleteForever className="  text-white  cursor-pointer hover:bg-orangelight " size={25} onClick={toggleModal} />
+                  <MdDeleteForever
+                    className="  text-white  cursor-pointer hover:bg-orangelight "
+                    size={25}
+                    onClick={toggleModal}
+                  />
                   <p className="text-white font-medium">DELETE</p>
                 </button>
               </div>
@@ -117,12 +125,17 @@ const ProfileForm = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-row gap-28  ">
               <div className="w-full max-w-xs">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   First Name
                 </label>
                 <input
                   className={`appearance-none block w-full ${
-                    !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                    !editMode
+                      ? "  bg-zinc-200 text-gray-700"
+                      : "focus:bg-white focus:border-gray-500"
                   } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                   placeholder="Enter text here..."
                   disabled={!editMode}
@@ -133,12 +146,17 @@ const ProfileForm = () => {
                 />
               </div>
               <div className="w-full max-w-xs ">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   Last Name
                 </label>
                 <input
                   className={`appearance-none block w-full ${
-                    !editMode ? "bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                    !editMode
+                      ? "bg-zinc-200 text-gray-700"
+                      : "focus:bg-white focus:border-gray-500"
                   } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                   placeholder="Enter text here..."
                   defaultValue={userData?.lastName}
@@ -151,7 +169,10 @@ const ProfileForm = () => {
             {/* second row */}
             <div className="flex flex-row gap-28 my-8 ">
               <div className="w-full max-w-xs">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   Email
                 </label>
                 <input
@@ -168,12 +189,17 @@ const ProfileForm = () => {
             {/* third row */}
             <div className="flex flex-row gap-28  ">
               <div className="w-full max-w-xs">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   Position
                 </label>
                 <input
                   className={`appearance-none block w-full ${
-                    !editMode ? "bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                    !editMode
+                      ? "bg-zinc-200 text-gray-700"
+                      : "focus:bg-white focus:border-gray-500"
                   } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                   disabled={!editMode}
                   defaultValue={userData?.position}
@@ -183,12 +209,17 @@ const ProfileForm = () => {
                 />
               </div>
               <div className="w-full max-w-xs  ">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   Major
                 </label>
                 <input
                   className={`appearance-none block w-full ${
-                    !editMode ? "bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                    !editMode
+                      ? "bg-zinc-200 text-gray-700"
+                      : "focus:bg-white focus:border-gray-500"
                   } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                   placeholder="Enter text here..."
                   defaultValue={userData?.major}
@@ -202,12 +233,17 @@ const ProfileForm = () => {
             {/* fourth row */}
             <div className="flex my-10  ">
               <div className="w-full ">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+                <label
+                  className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                  htmlFor="input"
+                >
                   Briefly Introduce Yourself
                 </label>
                 <textarea
                   className={`appearance-none block w-full ${
-                    !editMode ? "bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                    !editMode
+                      ? "bg-zinc-200 text-gray-700"
+                      : "focus:bg-white focus:border-gray-500"
                   } border border-gray-300 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                   placeholder="Enter text here..."
                   disabled={!editMode}
@@ -238,12 +274,18 @@ const ProfileForm = () => {
 
             {/* fifth  row */}
             <div className="flex flex-col ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="input"
+              >
                 skills
               </label>
               <div className="flex flex-wrap gap-4 w-3/4 my-5">
                 {userData?.skills?.map((skill: any, index: any) => (
-                  <p key={index} className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">
+                  <p
+                    key={index}
+                    className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm"
+                  >
                     {skill?.subcategory}
                   </p>
                 ))}
@@ -252,7 +294,10 @@ const ProfileForm = () => {
 
             {/* sixth  row */}
             <div className="flex flex-col  ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="input">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="input"
+              >
                 portfolio
               </label>
               <div className="flex flex-col justify-center items-center gap-6 border border-solid border-greendark my-4 pt-2 pb-14  rounded-md overflow-y-auto">
@@ -271,18 +316,35 @@ const ProfileForm = () => {
                         />
                       </Tooltip>
 
-                      <img src={previewUrls} alt="no-img" className="object-contain max-w-lg max-h-96  " />
+                      <img
+                        src={previewUrls}
+                        alt="no-img"
+                        className="object-contain max-w-lg max-h-96  "
+                      />
                       <button className="flex flex-row items-center justify-center gap-2 bg-orangedark w-fit my-2 px-4 py-3 rounded-2xl md:px-6 md:py-2">
-                        <img width={35} src="/icons/img_upload.svg" alt="google-icon" />
-                        <p className="text-white font-semibold text-sm">Submit</p>
+                        <img
+                          width={35}
+                          src="/icons/img_upload.svg"
+                          alt="google-icon"
+                        />
+                        <p className="text-white font-semibold text-sm">
+                          Submit
+                        </p>
                       </button>
                     </div>
                   )}
                   {userData?.portfolioUrls?.length > 0 &&
                     userData?.portfolioUrls?.map((url: any) => {
                       return (
-                        <div key={url} className="flex flex-col justify-center items-center aspect-w-4 aspect-h-3 ">
-                          <img src={url} alt="no-img" className="object-contain max-w-lg max-h-96  " />
+                        <div
+                          key={url}
+                          className="flex flex-col justify-center items-center aspect-w-4 aspect-h-3 "
+                        >
+                          <img
+                            src={url}
+                            alt="no-img"
+                            className="object-contain max-w-lg max-h-96  "
+                          />
                           <MdDeleteForever
                             className=" bg-orangedark text-white p-1 border-2 rounded-full cursor-pointer hover:bg-orangelight hover:-translate-y-1 transition-all duration-300"
                             size={35}
@@ -312,12 +374,20 @@ const ProfileForm = () => {
                           onChange(files);
                         }}
                       >
-                        <div className={`flex flex-row justify-start items-center gap-8 px-5 ${previewUrls ? `hidden` : `block`} `}>
+                        <div
+                          className={`flex flex-row justify-start items-center gap-8 px-5 ${
+                            previewUrls ? `hidden` : `block`
+                          } `}
+                        >
                           <button className="flex flex-row items-center justify-center gap-2 bg-orangedark w-fit my-4 px-8 py-3 rounded-2xl  md:px-6 md:py-2">
                             <BiImageAdd className=" text-white" size={25} />
-                            <p className="text-white font-semibold text-sm">Upload Portfolio Sample</p>
+                            <p className="text-white font-semibold text-sm">
+                              Upload Portfolio Sample
+                            </p>
                           </button>
-                          <p className="text-md text-gray-400 font-semibold">Portfolio Samples</p>
+                          <p className="text-md text-gray-400 font-semibold">
+                            Portfolio Samples
+                          </p>
                         </div>
                       </FileUploader>
                     )}

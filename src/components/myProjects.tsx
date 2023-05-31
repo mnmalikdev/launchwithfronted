@@ -1,5 +1,9 @@
-import { CategoryArray, IndustriesArray, ProjectStageArray } from "@/constants/data-store";
-import useProjects from "@/pages/profile/hooks/useProjects";
+import {
+  CategoryArray,
+  IndustriesArray,
+  ProjectStageArray,
+} from "@/constants/data-store";
+import useProjects from "@/hooks/useProjects";
 import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import DatePicker from "react-date-picker";
@@ -24,7 +28,14 @@ const MyProjects = () => {
   const [editProjectId, setEditProjectId] = useState(undefined);
   const [editMode, setEditMode] = useState(false);
 
-  const { projects, isLoading, convertTimeStampToDate, convertTimeStampToDateObj, fetchUserProjects, handleEditProject } = useProjects();
+  const {
+    projects,
+    isLoading,
+    convertTimeStampToDate,
+    convertTimeStampToDateObj,
+    fetchUserProjects,
+    handleEditProject,
+  } = useProjects();
   const {
     handleSubmit,
     reset,
@@ -47,7 +58,10 @@ const MyProjects = () => {
     console.log("submitted !!", formData);
 
     // Check if any changes have been made
-    const hasChanges = Object.entries(formData).some(([key, value]) => selectedProject[key as keyof typeof selectedProject] !== value);
+    const hasChanges = Object.entries(formData).some(
+      ([key, value]) =>
+        selectedProject[key as keyof typeof selectedProject] !== value
+    );
 
     // If no changes, update the form data with default values
     if (!hasChanges) {
@@ -146,25 +160,40 @@ const MyProjects = () => {
         <p className="text-2xl text-orangedark font-bold">My Projects</p>
       </div>
       <div className="flex  md:flex-row gap-4 md:justify-between md:items-start">
-        {isLoading ? <Loader /> : <div className="flex flex-col md:flex-row gap-3 flex-wrap  my-2">{projectCards}</div>}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div className="flex flex-col md:flex-row gap-3 flex-wrap  my-2">
+            {projectCards}
+          </div>
+        )}
         <div className="flex flex-col md:flex-row gap-5 my-2">
           <ProjectCard onClick={toggleCreateProjectModal} />
         </div>
       </div>
 
-      <Modal isOpen={displayViewModal} onClose={toggleViewProjectModal} bgColor="bg-white">
+      <Modal
+        isOpen={displayViewModal}
+        onClose={toggleViewProjectModal}
+        bgColor="bg-white"
+      >
         <form onSubmit={handleSubmit(handleEditFormSubmit)}>
           <div className="flex flex-col gap-4 w-full ">
             <TiEdit onClick={toggleEditMode} size={20} />
             {/* project name */}
             <div className="w-full ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="name"
+              >
                 Project Title
               </label>
               <input
                 key={`${Math.floor(Math.random() * 1000)}-min`}
                 className={`appearance-none block w-full ${
-                  !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                  !editMode
+                    ? "  bg-zinc-200 text-gray-700"
+                    : "focus:bg-white focus:border-gray-500"
                 } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                 disabled={!editMode}
                 defaultValue={selectedProject?.name}
@@ -187,7 +216,10 @@ const MyProjects = () => {
                   className="w-full text-greendark"
                   calendarIcon={<AiFillCalendar className="text-orangedark" />}
                   clearIcon={null}
-                  value={field.value || convertTimeStampToDateObj(selectedProject?.startDate)}
+                  value={
+                    field.value ||
+                    convertTimeStampToDateObj(selectedProject?.startDate)
+                  }
                   selectRange={false}
                   onChange={(dateTime) => {
                     field.onChange(dateTime); // Update the field value
@@ -198,12 +230,17 @@ const MyProjects = () => {
 
             {/* project basic info */}
             <div className="w-full py-3 ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="basicInfo">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="basicInfo"
+              >
                 Basic Info
               </label>
               <textarea
                 className={`appearance-none block w-full h-36 ${
-                  !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                  !editMode
+                    ? "  bg-zinc-200 text-gray-700"
+                    : "focus:bg-white focus:border-gray-500"
                 } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                 disabled={!editMode}
                 defaultValue={selectedProject.basicInfo}
@@ -213,12 +250,17 @@ const MyProjects = () => {
 
             {/* project more info */}
             <div className="w-full  ">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="moreInfo">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="moreInfo"
+              >
                 More Info
               </label>
               <textarea
                 className={`appearance-none block w-full h-36 ${
-                  !editMode ? "  bg-zinc-200 text-gray-700" : "focus:bg-white focus:border-gray-500"
+                  !editMode
+                    ? "  bg-zinc-200 text-gray-700"
+                    : "focus:bg-white focus:border-gray-500"
                 } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
                 disabled={!editMode}
                 defaultValue={selectedProject.moreInfo}
@@ -230,18 +272,28 @@ const MyProjects = () => {
               <Controller
                 name="industry"
                 control={control}
-                defaultValue={selectedProject?.industry?.map((industry) => industry?.name) || []} // Update defaultValue to contain the actual values
+                defaultValue={
+                  selectedProject?.industry?.map(
+                    (industry) => industry?.name
+                  ) || []
+                } // Update defaultValue to contain the actual values
                 render={({ field: { onChange, value } }) => (
                   <InlineMultiselect
                     options={IndustriesArray}
                     selected={value}
-                    defaultValue={selectedProject?.industry?.map((industry) => industry?.name) || []} // Update defaultValue to contain the actual values
+                    defaultValue={
+                      selectedProject?.industry?.map(
+                        (industry) => industry?.name
+                      ) || []
+                    } // Update defaultValue to contain the actual values
                     onChange={onChange}
                   />
                 )}
               />
 
-              {errors?.industry && <span className="text-red-500">This field is required</span>}
+              {errors?.industry && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
 
             <label htmlFor="stage" className="text-lg font-medium">
@@ -254,11 +306,18 @@ const MyProjects = () => {
                 control={control}
                 defaultValue={selectedProject?.stage}
                 render={({ field: { onChange, value } }) => (
-                  <VerticalRadioSelect options={ProjectStageArray} defaultValue={selectedProject?.stage} selected={value} onChange={onChange} />
+                  <VerticalRadioSelect
+                    options={ProjectStageArray}
+                    defaultValue={selectedProject?.stage}
+                    selected={value}
+                    onChange={onChange}
+                  />
                 )}
               />
 
-              {errors?.projectStage && <span className="text-red-500">This field is required</span>}
+              {errors?.projectStage && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
 
             <label htmlFor="category" className="text-lg font-medium">
@@ -271,11 +330,18 @@ const MyProjects = () => {
                 control={control}
                 defaultValue={selectedProject?.category}
                 render={({ field: { onChange, value } }) => (
-                  <VerticalRadioSelect options={CategoryArray} selected={value} defaultValue={selectedProject?.category} onChange={onChange} />
+                  <VerticalRadioSelect
+                    options={CategoryArray}
+                    selected={value}
+                    defaultValue={selectedProject?.category}
+                    onChange={onChange}
+                  />
                 )}
               />
 
-              {errors?.category && <span className="text-red-500">This field is required</span>}
+              {errors?.category && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </div>
 
             <label htmlFor="companyUrl" className="text-lg font-medium">
@@ -290,18 +356,22 @@ const MyProjects = () => {
             />
 
             <div className="flex flex-col gap-3 py-2  ">
-              <h2 className="text-2xl text-greendark font-semibold ">Interested Contributers</h2>
-              {selectedProject?.contributerInProjects?.map((contributerInProjects) => {
-                return (
-                  <InterestedContributer
-                    key={contributerInProjects?.userId}
-                    userId={contributerInProjects?.userId}
-                    email={contributerInProjects?.email}
-                    imgUrl={contributerInProjects?.profileImageUrl}
-                    userName={contributerInProjects?.userName}
-                  />
-                );
-              })}
+              <h2 className="text-2xl text-greendark font-semibold ">
+                Interested Contributers
+              </h2>
+              {selectedProject?.contributerInProjects?.map(
+                (contributerInProjects) => {
+                  return (
+                    <InterestedContributer
+                      key={contributerInProjects?.userId}
+                      userId={contributerInProjects?.userId}
+                      email={contributerInProjects?.email}
+                      imgUrl={contributerInProjects?.profileImageUrl}
+                      userName={contributerInProjects?.userName}
+                    />
+                  );
+                }
+              )}
             </div>
           </div>
           <button
@@ -318,7 +388,10 @@ const MyProjects = () => {
         </form>
       </Modal>
 
-      <CreateProjectForm displayCreateModal={displayCreateModal} toggleCreateProjectModal={toggleCreateProjectModal} />
+      <CreateProjectForm
+        displayCreateModal={displayCreateModal}
+        toggleCreateProjectModal={toggleCreateProjectModal}
+      />
     </div>
   );
 };

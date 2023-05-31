@@ -1,3 +1,5 @@
+"use client";
+
 import { AuthContext } from "@/context/authentication.context";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
@@ -32,12 +34,16 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/assignRole`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/assignRole`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("isko dekh k change karo", formData?.role);
         console.log("DSDSDSDW2", formData?.role);
         // Update the role in the context
@@ -64,12 +70,16 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/addSkills`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/addSkills`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response);
         setIsLoading(false);
         toast(`skills added !`);
@@ -90,16 +100,22 @@ function useUpdateProfile() {
       console.log(`${name}: ${value}`);
     }
 
-    formData?.portfolio?.length > 3 ? toast.error("only three files allowed") : setError(null);
+    formData?.portfolio?.length > 3
+      ? toast.error("only three files allowed")
+      : setError(null);
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/updateProfile`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/updateProfile`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         console.log(response);
         const updatedUser = await fetchCurrentUserProfile();
         setUserData(updatedUser);
@@ -124,12 +140,16 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadProfilePic`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadProfilePic`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         console.log(response);
         const updatedUser = await fetchCurrentUserProfile();
         setUserData(updatedUser);
@@ -154,12 +174,16 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadCoverPic`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadCoverPic`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
         console.log(response);
         const updatedUser = await fetchCurrentUserProfile();
         setUserData(updatedUser);
@@ -183,12 +207,15 @@ function useUpdateProfile() {
       const parsedUser = JSON.parse(user);
 
       if (token) {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/fetchProfile/${parsedUser.userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/fetchProfile/${parsedUser.userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response);
 
         setIsLoading(false);
@@ -209,11 +236,16 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/deletePortfolioSample/${encodeURIComponent(url)}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${
+            process.env.NEXT_PUBLIC_API_BASE_URL
+          }profile/deletePortfolioSample/${encodeURIComponent(url)}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         console.log(response);
         const updatedUser = await fetchCurrentUserProfile();
         setUserData(updatedUser);

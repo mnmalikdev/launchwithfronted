@@ -11,7 +11,7 @@ export const ProjectContext = createContext({
 });
 
 // Create the context provider component
-export const ProjectProvider = ({ children }: any) => {
+const ProjectProvider = ({ children }: any) => {
   const { role } = useContext(AuthContext);
   const [projects, setProjects] = useState<Array<any>>([]);
 
@@ -36,12 +36,15 @@ export const ProjectProvider = ({ children }: any) => {
         } else if (role === "visionary") {
           apiUrl = "project/fetchOwnerProjects";
         }
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}${apiUrl}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}${apiUrl}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
@@ -63,5 +66,11 @@ export const ProjectProvider = ({ children }: any) => {
     updateProjects,
   };
 
-  return <ProjectContext.Provider value={contextValue}>{children}</ProjectContext.Provider>;
+  return (
+    <ProjectContext.Provider value={contextValue}>
+      {children}
+    </ProjectContext.Provider>
+  );
 };
+
+export default ProjectProvider;
