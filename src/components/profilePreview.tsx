@@ -6,6 +6,8 @@ interface ProfileData {
   jobTitle: string;
   profilePic: string;
   profileBio: string;
+  email: string;
+  skills: any[];
 }
 
 interface Props {
@@ -19,7 +21,7 @@ const ProfilePreview: FC<Props> = ({ profileData }) => {
       {/* replace with dynamic data later */}
       <div className=" flex flex-row">
         <div className="flex flex-row gap-1">
-          <img src={profileData.profilePic} width={100} height={100} alt="profile-pic-url" />
+          <img src={profileData?.profilePic} width={70} height={70} alt="profile-pic-url" className=" rounded-full" />
           <span className=" flex justify-center flex-col">
             <p className=" text-base text-greendark">{profileData.name ?? "Edward Hue"}</p>
             <span className="flex flex-row gap-4">
@@ -30,16 +32,22 @@ const ProfilePreview: FC<Props> = ({ profileData }) => {
         </div>
       </div>
       {/* profile bio */}
-      <div className="flex flex-col border-2 border-greendark rounded-md p-2 my-3">
+      <div className="flex  border-2 border-greendark rounded-md p-2 my-3">
         <p className=" text-base ">
           {profileData.profileBio ??
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It "}
         </p>
       </div>
+      <h2 className=" text-greendark text-xl font-bold ">Email</h2>
+      <p className="text-lg text-greendark font-bold my-1">{profileData.email}</p>
       {/* skills */}
-      <h2 className=" text-greendark text-xl font-bold ">Skills I Have</h2>
-      <div className="flex w-full my-2">
-        <p className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">GRAPHIC DESIGN</p>
+      <h2 className=" text-greendark text-xl font-bold my-3 ">Skills I Have</h2>
+      <div className="flex flex-wrap gap-2 my-2">
+        {profileData?.skills?.map((skill) => {
+          return (
+            <p className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">{skill?.subcategory}</p>
+          );
+        })}
       </div>
 
       <h2 className=" text-greendark text-xl font-bold ">Portfolio</h2>

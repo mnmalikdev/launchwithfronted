@@ -1,10 +1,12 @@
+import { AuthContext } from "@/context/authentication.context";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 // this stepper will control rendering of components in the complete profile stage.
 
 function useUpdateProfile() {
+  const { updateAuthStateInContext } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState(null);
   const [error, setError] = useState(null);
@@ -19,8 +21,8 @@ function useUpdateProfile() {
     skills: [],
     profileImageUrl: "",
     coverImageUrl: "",
+    role: "undefined",
   });
-  const BaseUrl = "http://localhost:3000/";
 
   // a function to assign user a role.
   const handleAssignRole = async (formData: any) => {
@@ -30,14 +32,18 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${BaseUrl}profile/assignRole`, formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/assignRole`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         });
-        console.log(response);
+        console.log("isko dekh k change karo", formData?.role);
+        console.log("DSDSDSDW2", formData?.role);
+        // Update the role in the context
+        updateAuthStateInContext({ role: formData?.role });
         setRole(response?.data?.role);
+
         setIsLoading(false);
         toast(`You have Signed Up Succesfully as ${response?.data?.role}`);
       }
@@ -58,7 +64,7 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${BaseUrl}profile/addSkills`, formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/addSkills`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -88,7 +94,7 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.patch(`${BaseUrl}profile/updateProfile`, formData, {
+        const response = await axios.patch(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/updateProfile`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -118,7 +124,7 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${BaseUrl}profile/uploadProfilePic`, formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadProfilePic`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -148,7 +154,7 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.post(`${BaseUrl}profile/uploadCoverPic`, formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/uploadCoverPic`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
@@ -177,7 +183,7 @@ function useUpdateProfile() {
       const parsedUser = JSON.parse(user);
 
       if (token) {
-        const response = await axios.get(`${BaseUrl}profile/fetchProfile/${parsedUser.userId}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/fetchProfile/${parsedUser.userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -203,7 +209,7 @@ function useUpdateProfile() {
     try {
       const token = window.localStorage.getItem("access_token");
       if (token) {
-        const response = await axios.get(`${BaseUrl}profile/deletePortfolioSample/${encodeURIComponent(url)}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}profile/deletePortfolioSample/${encodeURIComponent(url)}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

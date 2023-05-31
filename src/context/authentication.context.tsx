@@ -1,7 +1,8 @@
+import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
 import axios from "axios";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext({
@@ -14,11 +15,11 @@ export const AuthContext = createContext({
   error: null,
   handleLogin: (formdata: any) => {},
   handleLogout: () => {},
+  updateAuthStateInContext: (newState: any) => {},
 });
 
-const BaseUrl = "http://localhost:3000/";
-
 function AuthContextProvider({ children }: any) {
+  const { fetchCurrentUserProfile } = useUpdateProfile();
   const redirect = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +35,7 @@ function AuthContextProvider({ children }: any) {
     setError(null);
     setIsLoading(true);
     try {
-      const response = await axios.post(`${BaseUrl}auth/signin`, formData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/signin`, formData);
       console.log(response);
       if (response?.data?.tokens?.access_token) {
         window.localStorage.setItem("access_token", response?.data?.tokens?.access_token);
@@ -68,9 +69,32 @@ function AuthContextProvider({ children }: any) {
     setUserName("");
     setEmail("");
     setRole("");
-    setIsAuthenticated(false);
     window.localStorage.clear();
-    redirect.push("/");
+    setIsAuthenticated(false);
+    redirect.push("/auth/signin");
+  };
+
+  useEffect(() => {
+    fetchCurrentUserProfile().then((res) => {
+      console.log("res==>contenxt-->", res);
+      if (res) {
+        setEmail(res?.email);
+        setRole(res?.role);
+        setUserId(res?.userId);
+        setUserName(res.userName);
+      }
+    });
+  }, []);
+
+  const updateAuthStateInContext = (newState: any) => {
+    // Update the state with the new values
+    setUserId(newState.userId);
+    setUserName(newState.userName);
+    setEmail(newState.email);
+    setRole(newState.role);
+    setIsAuthenticated(newState.isAuthenticated);
+    setIsLoading(newState.isLoading);
+    setError(newState.error);
   };
 
   return (
@@ -83,6 +107,7 @@ function AuthContextProvider({ children }: any) {
         userName,
         role,
         error,
+        updateAuthStateInContext,
         handleLogin,
         handleLogout,
       }}

@@ -7,13 +7,11 @@ const useVerification = (token: string) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const API_BASE_URL = "http://localhost:3000/";
-
   useEffect(() => {
     const verifyUser = async () => {
       try {
         if (token) {
-          const response = await axios.get(`${API_BASE_URL}auth/verifyUser?token=${token}`); // use the token value passed as argument
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/verifyUser?token=${token}`); // use the token value passed as argument
           console.log("RESPONSE ===>", response);
           setIsVerified(true);
         }

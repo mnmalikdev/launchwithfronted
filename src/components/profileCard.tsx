@@ -1,6 +1,7 @@
+import { AuthContext } from "@/context/authentication.context";
 import { useModal } from "@/hooks/useModal";
 import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { Controller, useForm } from "react-hook-form";
 import { BiImageAdd } from "react-icons/bi";
@@ -13,11 +14,12 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
+  const { handleLogout } = useContext(AuthContext);
   const { handleProfilePicUpload, userData, isLoading } = useUpdateProfile();
   const { handleSubmit, control, reset } = useForm({ mode: "onChange" });
   const { isOpen, toggleModal } = useModal();
   const fileTypes = ["JPG", "PNG"];
-  const navArray = ["Profile", "My Projects", "Liked Projects", "Discovery", "Message"];
+  const navArray = ["Profile", "My Projects", "Liked Projects", "Discovery", "Messages"];
   const [previewUrls, setPreviewUrls] = useState<any>();
 
   const handleClick = (name: string) => {
@@ -47,24 +49,39 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center shadow-lg rounded-md bg-white md:w-1/4 h-fit px-8 -mt-10 ml-9 z-50 ">
+    <div className="flex flex-col items-center shadow-lg rounded-md bg-white md:w-1/4 h-fit py-3 px-8 -mt-10 ml-9 z-50 ">
       {/* image */}
       <div className="relative w-max">
         {isLoading ? (
           <Loader />
         ) : (
           <>
-            <img
-              className="w-32 h-32 border-2 border-bgbox object-cover rounded-full my-2 shadow-lg"
-              src={userData?.profileImageUrl}
-              alt="profile-avatar"
-            />
-            <button
-              onClick={toggleModal}
-              className="absolute bottom-0 right-0 rounded-full p-2 shadow-md transition-opacity duration-200 bg-orangedark hover:bg-orangelight cursor-pointer"
-            >
-              <FiEdit className=" text-white" size={20} />
-            </button>
+            <div className="flex flex-col">
+              {/* <p className="bg-orangedark text-white text-center rounded-md shadow-md my-2 py-1">{userData?.role}</p> */}
+              {userData?.profileImageUrl === "0" ? (
+                <img
+                  className=" w-40 h-40 border-2 border-bgbox object-cover rounded-full my-2 shadow-xl relative"
+                  src={"/images/profile-avatar.png"}
+                  alt="profile-avatar"
+                />
+              ) : (
+                <img
+                  className=" w-40 h-40 border-2 border-bgbox object-cover rounded-full my-2 shadow-xl relative"
+                  src={userData?.profileImageUrl}
+                  alt="profile-avatar"
+                />
+              )}
+
+              <p className=" text-center absolute top-0 right-28 bg-orangedark text-white text-xs font-semibold leading-normal rounded-md py-1 px-1  mt-2 shadow-md">
+                {userData?.role}
+              </p>
+              <button
+                onClick={toggleModal}
+                className="absolute bottom-0 right-2 rounded-full p-2 shadow-md transition-opacity duration-200 bg-orangedark hover:bg-orangelight cursor-pointer"
+              >
+                <FiEdit className="text-white" size={20} />
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -74,15 +91,21 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
       <div className=" flex flex-col gap-3 my-4 w-full">
         {navArray.map((option) => {
           return (
-            <div
-              className="flex bg-primary justify-center items-center text-white text-md w-full rounded-lg shadow-xl px-12 py-1 hover:bg-greensemidark cursor-pointer"
+            <button
+              className="flex bg-primary justify-center items-center  text-white text-md w-full rounded-lg shadow-xl  py-1 hover:bg-greensemidark cursor-pointer"
               key={option}
               onClick={() => handleClick(option)}
             >
               {option}
-            </div>
+            </button>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="flex bg-primary justify-center items-center  text-white text-md w-full rounded-lg shadow-xl  py-1 hover:bg-greensemidark cursor-pointer"
+        >
+          Log Out
+        </button>
       </div>
 
       <Modal isOpen={isOpen} onClose={toggleModal} bgColor="bg-box">

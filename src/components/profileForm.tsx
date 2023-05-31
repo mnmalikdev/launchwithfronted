@@ -1,10 +1,10 @@
 import { useModal } from "@/hooks/useModal";
 import useUpdateProfile from "@/pages/profile/hooks/useUpdateProfile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import { Controller, useForm } from "react-hook-form";
 import { BiImageAdd } from "react-icons/bi";
-import { MdDeleteForever } from "react-icons/md";
+import { MdDeleteForever, MdRemoveCircle } from "react-icons/md";
 import { TiEdit } from "react-icons/ti";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,11 +14,20 @@ import Tooltip from "./tooltip";
 
 const ProfileForm = () => {
   const { handleUpdateProfile, isLoading, userData, deletePortfolioUrl } = useUpdateProfile();
-  const { register, handleSubmit, control, reset, formState } = useForm({ mode: "onChange" });
+  const { register, handleSubmit, control, reset, formState, watch, setValue } = useForm({ mode: "onChange" });
+  const bioValue = watch("bio", "");
   const [previewUrls, setPreviewUrls] = useState<any>();
   const [deleteSampleUrl, setDeleteSampleUrl] = useState<string>("");
   const { isOpen, toggleModal } = useModal();
   // as soon as the page loads, set the usedata
+  const isCountExceeded = bioValue.length >= 500;
+  useEffect(() => {
+    if (userData?.bio) {
+      setValue("bio", userData.bio); // Set the fetched bio as the default value
+    } else {
+      setValue("bio", ""); // Set an empty value if bio is not available
+    }
+  }, [userData?.bio, setValue]);
 
   const onSubmit = async (formData: any) => {
     const form = new FormData();
@@ -204,8 +213,12 @@ const ProfileForm = () => {
                   disabled={!editMode}
                   defaultValue={userData?.bio}
                   rows={5}
+                  maxLength={500}
                   {...register("bio")}
                 />
+                <div className={isCountExceeded ? "text-red-500" : ""}>
+                  {bioValue.length}/{500}
+                </div>
               </div>
             </div>
 
@@ -250,6 +263,14 @@ const ProfileForm = () => {
                 <div className="flex flex-wrap gap-3 justify-center items-center max-h-96">
                   {previewUrls && (
                     <div className="flex flex-col mb-10">
+                      <Tooltip content="remove ">
+                        <MdRemoveCircle
+                          onClick={() => setPreviewUrls(null)}
+                          className="text-orangedark my-2 cursor-pointer hover:-translate-y-1 transition-all "
+                          size={24}
+                        />
+                      </Tooltip>
+
                       <img src={previewUrls} alt="no-img" className="object-contain max-w-lg max-h-96  " />
                       <button className="flex flex-row items-center justify-center gap-2 bg-orangedark w-fit my-2 px-4 py-3 rounded-2xl md:px-6 md:py-2">
                         <img width={35} src="/icons/img_upload.svg" alt="google-icon" />

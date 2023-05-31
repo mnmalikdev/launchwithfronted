@@ -8,13 +8,12 @@ function useLogin() {
   const redirect = useRouter();
 
   const [error, setError] = useState(null);
-  const BaseUrl = "http://localhost:3000/";
 
   const handleSignin = async (formData: any) => {
     console.log("form data", formData);
     setError(null);
     try {
-      const response = await axios.post(`${BaseUrl}auth/signin`, formData);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/signin`, formData);
       console.log(response);
       if (response?.data?.tokens?.access_token) {
         window.localStorage.setItem("access_token", response?.data?.tokens?.access_token);

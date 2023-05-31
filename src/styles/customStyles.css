@@ -1,40 +1,11 @@
-/* Hide scrollbar track */
-div.max-h-96::-webkit-scrollbar-track {
-  background-color: transparent;
+.react-datetime-picker {
+  width: 100%;
 }
 
-/* Style the scrollbar thumb */
-div.max-h-96::-webkit-scrollbar-thumb {
-  background-color: #4b5563;
-  border-radius: 10px;
+.react-calendar__tile.react-calendar__tile--now.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day {
+  background-color: #ff7800 !important;
 }
 
-/* On hover, style the scrollbar thumb */
-div.max-h-96::-webkit-scrollbar-thumb:hover {
-  background-color: #6b7280;
-}
-
-/* Style the scrollbar in other browsers */
-/* Set the width of the scrollbar */
-/* Set the color of the scrollbar thumb and track */
-/* Set the color of the scrollbar thumb on hover */
-div.max-h-96 {
-  scrollbar-width: thin;
-  scrollbar-color: #4b5563 #f3f4f6;
-}
-
-div.max-h-96::-webkit-scrollbar {
-  width: 10px;
-}
-
-div.max-h-96::-webkit-scrollbar-thumb {
-  background-color: #4b5563;
-}
-
-div.max-h-96::-webkit-scrollbar-thumb:hover {
-  background-color: #6b7280;
-}
-
-div.max-h-96::-webkit-scrollbar-track {
-  background-color: #f3f4f6;
+.react-datetime-picker__wrapper {
+  padding: 5px 0 5px 0;
 }

@@ -1,0 +1,46 @@
+export const IndustriesArray = [
+  "test",
+  "Admin, Support, Waste Management, and Remediation Services",
+  "Agriculture",
+  "Forestry, Fishing, and Hunting",
+  "Arts, Entertainment, and Recreation",
+  "Biotechnology and Pharmaceuticals",
+  "Business and Consulting",
+  "Construction",
+  "Consumer Services",
+  "Education",
+  "Real Estate and Property",
+  "Retail and E-commerce",
+  "Travel and Hospitality",
+  "Transportation",
+  "Web Programming, App Design, and Graphic Design",
+  "UI/UX",
+];
+
+export const CategoryArray = [
+  "Mobile Development",
+  "Web Development",
+  "Frontend Development",
+  "Backend Development",
+  "Full Stack Development",
+  "UI/UX Design",
+  "Quality Assurance",
+  "Infrastructure",
+  "Cloud Computing",
+  "Cybersecurity",
+  "Data Science",
+  "Machine Learning",
+  "Artificial Intelligence",
+  "Blockchain",
+  "Social Media Marketing",
+  "Content Creation",
+];
+
+export const ProjectStageArray = [
+  "Idea/Concept",
+  "Prototype/Bench Testing",
+  "User Testing",
+  "Minimum Viable Product",
+  "Product/Market Fit",
+  "Revenue Producing",
+];

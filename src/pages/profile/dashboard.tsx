@@ -1,3 +1,4 @@
+import Messages from "@/components/Messages";
 import Discovery from "@/components/discovery";
 import LikedProjects from "@/components/likedProjects";
 import Loader from "@/components/loader";
@@ -129,6 +130,7 @@ const Dashboard = () => {
         {selectedMenuItem === "My Projects" && <MyProjects />}
         {selectedMenuItem === "Discovery" && <Discovery />}
         {selectedMenuItem === "Liked Projects" && <LikedProjects />}
+        {selectedMenuItem === "Messages" && <Messages />}
       </div>
     </div>
   );
