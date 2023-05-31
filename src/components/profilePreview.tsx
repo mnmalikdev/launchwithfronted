@@ -43,9 +43,11 @@ const ProfilePreview: FC<Props> = ({ profileData }) => {
       {/* skills */}
       <h2 className=" text-greendark text-xl font-bold my-3 ">Skills I Have</h2>
       <div className="flex flex-wrap gap-2 my-2">
-        {profileData?.skills?.map((skill) => {
+        {profileData?.skills?.map((skill, idx) => {
           return (
-            <p className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">{skill?.subcategory}</p>
+            <p key={idx} className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">
+              {skill?.subcategory}
+            </p>
           );
         })}
       </div>

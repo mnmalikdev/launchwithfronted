@@ -102,7 +102,7 @@ const CreateProjectForm: FC<Props> = ({ displayCreateModal, toggleCreateProjectM
               placeholder="project basic info"
               {...register("basicInfo", { required: true })}
             />
-            {errors?.basicInfo && <span className="text-red-400">Project's basic info is required</span>}
+            {errors?.basicInfo && <span className="text-red-400">Project&apos;s basic info is required</span>}
             {/* project basic info */}
             <label htmlFor="moreInfo" className="text-lg font-medium">
               More Info

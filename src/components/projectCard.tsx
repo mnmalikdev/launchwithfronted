@@ -104,9 +104,9 @@ const ProjectCard: React.FC<Props> = ({ projectId, title, category, startDate, s
             {
               console.log("projectwaaa shambhavi", project);
             }
-            return project?.collabRequests?.map((request: any) => {
+            return project?.collabRequests?.map((request: any, idx: number) => {
               return (
-                <div className="flex flex-col w-full ">
+                <div key={idx} className="flex flex-col w-full ">
                   <div className="flex flex-row gap-1 items-center">
                     <img
                       className="  w-14 h-14 border-2 border-bgbox object-cover rounded-full my-2 shadow-xl relative"

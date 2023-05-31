@@ -281,7 +281,7 @@ const ProfileForm = () => {
                   {userData?.portfolioUrls?.length > 0 &&
                     userData?.portfolioUrls?.map((url: any) => {
                       return (
-                        <div className="flex flex-col justify-center items-center aspect-w-4 aspect-h-3 ">
+                        <div key={url} className="flex flex-col justify-center items-center aspect-w-4 aspect-h-3 ">
                           <img src={url} alt="no-img" className="object-contain max-w-lg max-h-96  " />
                           <MdDeleteForever
                             className=" bg-orangedark text-white p-1 border-2 rounded-full cursor-pointer hover:bg-orangelight hover:-translate-y-1 transition-all duration-300"

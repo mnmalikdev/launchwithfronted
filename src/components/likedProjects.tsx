@@ -65,7 +65,7 @@ const LikedProjects = () => {
           </div>
           {likedProjects?.map((project) => {
             return (
-              <div className="flex flex-col md:mx-4 my-4">
+              <div key={project?.projectId} className="flex flex-col md:mx-4 my-4">
                 <Request
                   title={project?.name}
                   // replace later with username

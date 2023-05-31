@@ -71,7 +71,7 @@ const Discovery = () => {
           </div>
           {allProjects?.map((project: any) => {
             return (
-              <div className="flex flex-col md:mx-4 my-4">
+              <div key={project?.projectId} className="flex flex-col md:mx-4 my-4">
                 <Request
                   projectId={project?.projectId}
                   title={project?.name}

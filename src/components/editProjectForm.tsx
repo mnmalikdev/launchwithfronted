@@ -188,6 +188,7 @@ const EditProjectForm: FC<Props> = ({ displayViewModal, toggleViewProjectModal, 
             {selectedProject?.contributerInProjects?.map((contributerInProjects) => {
               return (
                 <InterestedContributer
+                  key={contributerInProjects?.userId}
                   userId={contributerInProjects?.userId}
                   email={contributerInProjects?.email}
                   imgUrl={contributerInProjects?.profileImageUrl}
