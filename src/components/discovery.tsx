@@ -13,7 +13,6 @@ const Discovery = () => {
   const [showProfilePreview, setShowProfilePreview] = useState(false);
 
   const handleProfilePreview = (userData: any) => {
-    console.log("PROFILE PREVIEW DATA", userData);
     setUserProfileData(userData);
     setShowProfilePreview((prev) => !prev);
   };

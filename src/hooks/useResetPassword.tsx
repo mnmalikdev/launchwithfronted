@@ -20,7 +20,6 @@ function useResetPassword() {
           },
         }
       );
-      console.log("after creation", response);
       setIsLoading(false);
       toast(`Reset Password Link sent to your email. `);
     } catch (error: any) {
@@ -44,7 +43,6 @@ function useResetPassword() {
           },
         }
       );
-      console.log("after creation", response);
       setIsLoading(false);
       toast(`Reset Password Link sent to your email. `);
     } catch (error: any) {

@@ -13,7 +13,6 @@ const useProjects = () => {
 
   const convertTimeStampToDate = (timeStamp: number) => {
     // Replace `unixTimestamp` with your Unix timestamp
-    console.log("Input timestamp:", timeStamp);
     const unixTimestamp = timeStamp;
 
     // Get the user's timezone
@@ -42,8 +41,6 @@ const useProjects = () => {
       const v = n % 100;
       return suffixes[(v - 20) % 10] || suffixes[v] || suffixes[0];
     }
-
-    console.log("Converted date:", dateString);
 
     return dateString;
   };
@@ -74,7 +71,6 @@ const useProjects = () => {
             },
           }
         );
-        console.log("after creation", response);
         setIsLoading(false);
         toast(`Project created successfully!`);
         return await fetchUserProjects(); // Call the updated fetchUserProjects function
@@ -103,7 +99,6 @@ const useProjects = () => {
             },
           }
         );
-        console.log("after edit", response);
         setIsLoading(false);
         toast(`Project edit successfully!`);
         await fetchUserProjects(); // Call the updated fetchUserProjects function
@@ -131,7 +126,6 @@ const useProjects = () => {
             },
           }
         );
-        console.log(response);
         setIsLoading(false);
         toast(`project deleted successfully !`);
         await fetchUserProjects(); // Call the updated fetchUserProjects function
@@ -159,10 +153,8 @@ const useProjects = () => {
             },
           }
         );
-        console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
-        console.log("RESPONSE.DATA", response?.data);
         setIsLoading(false);
         return response?.data;
       }
@@ -173,7 +165,6 @@ const useProjects = () => {
   };
 
   const likeProject = async (projectId: string) => {
-    console.log("project id sds", projectId);
     setIsLoading(true);
     setError(null);
     try {
@@ -189,7 +180,6 @@ const useProjects = () => {
             },
           }
         );
-        console.log("after creation", response);
         await fetchLikedProjects();
         setIsLoading(false);
         toast(`Project added to liked Projects!`);
@@ -204,7 +194,6 @@ const useProjects = () => {
   };
 
   const unlikeProject = async (projectId: string) => {
-    console.log("project id sds", projectId);
     setIsLoading(true);
     setError(null);
     try {
@@ -220,7 +209,6 @@ const useProjects = () => {
             },
           }
         );
-        console.log("after creation", response);
         setIsLoading(false);
         toast(`Project unliked!`);
         return await fetchUserProjects(); // Call the updated fetchUserProjects function
@@ -248,10 +236,8 @@ const useProjects = () => {
             },
           }
         );
-        console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
 
-        console.log("RESPONSE.DATA", response?.data);
         setIsLoading(false);
         return response?.data;
       }
@@ -277,10 +263,7 @@ const useProjects = () => {
             },
           }
         );
-        console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
-
-        console.log("RESPONSE.DATA", response?.data);
 
         setIsLoading(false);
         return response?.data;
@@ -387,7 +370,6 @@ const useProjects = () => {
     };
 
     fetchData();
-    console.log("INCOMING FROM state projects", projects);
   }, []);
 
   return {

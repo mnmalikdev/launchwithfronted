@@ -59,7 +59,6 @@ const EditProjectForm: FC<Props> = ({
     // if (event) {
     //   event.preventDefault();
     // }
-    console.log("sbumited !!", formData);
   };
 
   return (

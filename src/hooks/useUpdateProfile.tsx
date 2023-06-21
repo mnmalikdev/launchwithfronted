@@ -29,7 +29,6 @@ function useUpdateProfile() {
   // a function to assign user a role.
   const handleAssignRole = async (formData: any) => {
     setIsLoading(true);
-    console.log("form data", formData);
     setError(null);
     try {
       const token = window.localStorage.getItem("access_token");
@@ -44,8 +43,6 @@ function useUpdateProfile() {
             },
           }
         );
-        console.log("isko dekh k change karo", formData?.role);
-        console.log("DSDSDSDW2", formData?.role);
         // Update the role in the context
         updateAuthStateInContext({ role: formData?.role });
         setRole(response?.data?.role);
@@ -65,7 +62,6 @@ function useUpdateProfile() {
 
   const handleSkillsSubmit = async (formData: any) => {
     setIsLoading(true);
-    console.log("form data", formData);
     setError(null);
     try {
       const token = window.localStorage.getItem("access_token");
@@ -95,7 +91,6 @@ function useUpdateProfile() {
   // a function to update user's profile
   const handleUpdateProfile = async (formData: any) => {
     setIsLoading(true);
-    console.log("formentries in APICALL:");
     for (const [name, value] of formData.entries()) {
       console.log(`${name}: ${value}`);
     }
@@ -203,7 +198,6 @@ function useUpdateProfile() {
     setError(null);
     try {
       const token = window.localStorage.getItem("access_token");
-      console.log("MAIN ACCES TOKEN HOON", token);
       const user = window.localStorage.getItem("user") ?? "";
       const parsedUser = JSON.parse(user);
 

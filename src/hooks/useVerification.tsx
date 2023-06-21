@@ -11,12 +11,12 @@ const useVerification = (token: string) => {
     const verifyUser = async () => {
       try {
         if (token) {
-          const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}auth/verifyUser?token=${token}`); // use the token value passed as argument
-          console.log("RESPONSE ===>", response);
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/verifyUser?token=${token}`
+          ); // use the token value passed as argument
           setIsVerified(true);
         }
       } catch (err: any) {
-        console.log("error msg==>", err);
         setError(err.message);
       } finally {
         setIsLoading(false);

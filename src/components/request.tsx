@@ -67,7 +67,6 @@ const Request: FC<Request> = ({
   const handleSendCollabRequest = async (formData: any) => {
     // add project id to the form data. it should be projectAssociatedWith
     formData.projectId = projectId;
-    console.log("collab incoming!!!=>>", formData);
     await sendCollaborationRequest(formData);
     reset();
     toggleModal();

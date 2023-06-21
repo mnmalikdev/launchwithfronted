@@ -42,7 +42,6 @@ const ProfileCard = ({ onMenuItemClick }: ProfileCardProps) => {
 
     form.append("profilePic", profilePic); // Append the actual file object to the form data
 
-    console.log("formentries:");
     for (const [name, value] of form.entries()) {
       console.log(`${name}: ${value}`);
     }

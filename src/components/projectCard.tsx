@@ -178,7 +178,6 @@ const ProjectCard: React.FC<Props> = ({
                     </button>
                     <button
                       onClick={() => {
-                        console.log("sexy shambhavi ah ", request);
                         deleteCollabRequest(request?.collabRequestId);
                       }}
                       className="bg-red-500 text-white py-2 px-4  mt-2 hover:bg-red-700 focus:outline-none w-2/12 rounded-md"

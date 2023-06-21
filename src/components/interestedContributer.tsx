@@ -20,13 +20,10 @@ const InterestedContributer: FC<InterestedContributerProps> = ({
   const { removeContributer, fetchUserProjects } = useProjects();
 
   const handleRemoveContributer = async (projectId: string, userId: string) => {
-    console.log("call me daddy,shambhavi", projectId);
-    console.log("whos your daddy, shambhavi", userId);
     const formData = {
       projectId: projectId,
       userId: userId,
     };
-    console.log("remove contributer form data", formData);
     await removeContributer(formData);
     await fetchUserProjects();
   };
@@ -60,8 +57,6 @@ const InterestedContributer: FC<InterestedContributerProps> = ({
       </button>
       <button
         onClick={() => {
-          console.log("fuck me shambhavi", userId);
-          console.log("ride me shambhavi , ah ah ah", projectId);
           handleRemoveContributer(projectId, userId);
         }}
         className="flex flex-col justify-center items-center cursor-pointer bg-orangedark py-1 px-1 rounded-full "

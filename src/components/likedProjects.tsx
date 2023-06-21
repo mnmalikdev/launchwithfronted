@@ -13,19 +13,15 @@ const LikedProjects = () => {
   useEffect(() => {
     fetchLikedProjects()
       .then((res) => {
-        console.log("LIKEDWAAAAA", res);
         setLikedProjects(res);
       })
-      .catch((error) => {
-        console.log("Error fetching liked projects:", error);
-      });
+      .catch((error) => {});
   }, []);
 
   const { isOpen, toggleModal } = useModal();
   const [showProfilePreview, setShowProfilePreview] = useState(false);
 
   const handleProfilePreview = (userData: any) => {
-    console.log("PROFILE PREVIEW DATA", userData);
     setUserProfileData(userData);
     setShowProfilePreview((prev) => !prev);
   };

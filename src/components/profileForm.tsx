@@ -40,17 +40,11 @@ const ProfileForm = () => {
     form.append("bio", formData?.bio ?? userData?.bio);
     URL.revokeObjectURL(previewUrls);
     setPreviewUrls(null);
-    console.log("FORMDATA.PORTFOLIO", formData?.portfolio);
 
     const portfolio = formData?.portfolio;
 
     form.append("portfolio", portfolio); // Append the actual file object to the form data
 
-    console.log("formstate dirty fields", formState.dirtyFields);
-    console.log("formstate is dirty", formState.isDirty);
-    console.log(formState.touchedFields);
-
-    console.log("formentries:");
     for (const [name, value] of form.entries()) {
       console.log(`${name}: ${value}`);
     }

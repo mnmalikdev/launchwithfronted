@@ -31,7 +31,6 @@ function AuthContextProvider({ children }: any) {
   const [error, setError] = useState(null);
 
   const handleLogin = async (formData: any) => {
-    console.log("form data", formData);
     setError(null);
     setIsLoading(true);
     try {
@@ -39,7 +38,6 @@ function AuthContextProvider({ children }: any) {
         `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/signin`,
         formData
       );
-      console.log(response);
       if (response?.data?.tokens?.access_token) {
         window.localStorage.setItem(
           "access_token",
@@ -56,9 +54,7 @@ function AuthContextProvider({ children }: any) {
         const userDetails = window.localStorage.getItem("user");
         if (userDetails) {
           const details = JSON.parse(userDetails);
-          console.log("tokens", response?.data?.tokens);
-          console.log("userdetails", userDetails);
-          console.log("user detais", details);
+
           setUserId(details.userId);
           setUserName(details.userName);
           setEmail(details.email);
@@ -67,7 +63,6 @@ function AuthContextProvider({ children }: any) {
           setIsLoading(false);
           redirect.push("/profile/dashboard");
         }
-        console.log("USER DETAILS ", userDetails);
       }
     } catch (error: any) {
       setError(error?.response?.data?.message);
@@ -88,7 +83,6 @@ function AuthContextProvider({ children }: any) {
 
   useEffect(() => {
     fetchCurrentUserProfile().then((res) => {
-      console.log("res==>contenxt-->", res);
       if (res) {
         setEmail(res?.email);
         setRole(res?.role);

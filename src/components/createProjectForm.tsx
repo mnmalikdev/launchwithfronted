@@ -39,11 +39,9 @@ const CreateProjectForm: FC<Props> = ({
 
   const handleFormSubmit = async (formData: any) => {
     const { startDate, ...otherData } = formData;
-    console.log("incoming start date vefore conversion", startDate);
 
     const timestamp = Math.floor(startDate.getTime() / 1000);
 
-    console.log("incoming start date after conversion", timestamp);
     const updatedFormData = {
       ...otherData,
       startDate: timestamp,
@@ -103,7 +101,6 @@ const CreateProjectForm: FC<Props> = ({
                   value={field.value}
                   selectRange={false}
                   onChange={(dateTime) => {
-                    console.log("sfafsa", field); // Verify the field object
                     field.onChange(dateTime); // Update the field value
                   }}
                 />

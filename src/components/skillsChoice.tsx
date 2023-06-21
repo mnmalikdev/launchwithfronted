@@ -115,7 +115,6 @@ const SkillsChoice = () => {
                 className="bg-orangelight text-white py-2 px-4 rounded-full mt-2 hover:bg-orangedark focus:outline-none"
                 onClick={() => {
                   setSelectedCategoryIdx(-1);
-                  console.log(selectedSubCategories);
                 }}
               >
                 <p className="text-white">Back to categories</p>

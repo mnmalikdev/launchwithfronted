@@ -55,8 +55,6 @@ const MyProjects = () => {
   };
 
   const handleEditFormSubmit = (formData: any) => {
-    console.log("submitted !!", formData);
-
     // Check if any changes have been made
     const hasChanges = Object.entries(formData).some(
       ([key, value]) =>
@@ -123,7 +121,6 @@ const MyProjects = () => {
           onClick={() => {
             setSelectedProject(project);
             setEditProjectId(project?.projectId);
-            console.log("SELECTED PROJECT", selectedProject);
           }}
         >
           <ProjectCard
@@ -151,7 +148,6 @@ const MyProjects = () => {
     };
 
     fetchData();
-    console.log("INCOMING FROM state projects", projects);
   }, []);
 
   return (

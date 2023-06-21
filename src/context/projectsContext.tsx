@@ -26,7 +26,6 @@ const ProjectProvider = ({ children }: any) => {
       const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
 
       if (token && userDetails !== "") {
-        console.log("url", role);
         let apiUrl = "";
         if (role === "not set") {
           return [];
@@ -45,10 +44,7 @@ const ProjectProvider = ({ children }: any) => {
             },
           }
         );
-        console.log("response right after call", response);
         // convert each projects start date to readible date format from timeStamp
-
-        console.log("RESPONSE.DATA", response?.data);
 
         setProjects(response?.data);
         return response?.data;
