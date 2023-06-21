@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 // this stepper will control rendering of components in the complete profile stage.
 
 function useUpdateProfile() {
-  const { updateAuthStateInContext } = useContext(AuthContext);
+  const { updateAuthStateInContext, userId } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [role, setRole] = useState(null);
   const [error, setError] = useState(null);
@@ -203,12 +203,13 @@ function useUpdateProfile() {
     setError(null);
     try {
       const token = window.localStorage.getItem("access_token");
+      console.log("MAIN ACCES TOKEN HOON", token);
       const user = window.localStorage.getItem("user") ?? "";
       const parsedUser = JSON.parse(user);
 
       if (token) {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/fetchProfile/${parsedUser.userId}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}profile/fetchProfile/${parsedUser?.userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

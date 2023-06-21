@@ -190,6 +190,7 @@ const useProjects = () => {
           }
         );
         console.log("after creation", response);
+        await fetchLikedProjects();
         setIsLoading(false);
         toast(`Project added to liked Projects!`);
         return await fetchUserProjects(); // Call the updated fetchUserProjects function
@@ -221,7 +222,7 @@ const useProjects = () => {
         );
         console.log("after creation", response);
         setIsLoading(false);
-        toast(`Project added to liked Projects!`);
+        toast(`Project unliked!`);
         return await fetchUserProjects(); // Call the updated fetchUserProjects function
       }
     } catch (error: any) {
@@ -280,7 +281,36 @@ const useProjects = () => {
         // convert each projects start date to readible date format from timeStamp
 
         console.log("RESPONSE.DATA", response?.data);
+
         setIsLoading(false);
+        return response?.data;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log(error);
+      toast(error?.response?.data?.message);
+    }
+  };
+
+  const removeContributer = async (formData: any) => {
+    try {
+      setIsLoading(true);
+      const token = window.localStorage.getItem("access_token");
+      const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
+      if (token && userDetails) {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/removeContributer`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setIsLoading(false);
+        toast("Contributer removed !");
         return response?.data;
       }
     } catch (error: any) {
@@ -318,6 +348,34 @@ const useProjects = () => {
     }
   };
 
+  const declineCollabRequest = async (collabRequestId: string) => {
+    try {
+      setIsLoading(true);
+      const token = window.localStorage.getItem("access_token");
+      const userDetails = JSON.parse(window.localStorage.getItem("user") ?? "");
+      if (token && userDetails) {
+        const response = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}project/declineRequest/${collabRequestId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setIsLoading(false);
+        fetchUserProjects();
+
+        return response?.data;
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log(error);
+      toast(error?.response?.data?.message);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -346,6 +404,8 @@ const useProjects = () => {
     handleEditProject,
     acceptContributerRequest,
     sendCollaborationRequest,
+    declineCollabRequest,
+    removeContributer,
     isLoading,
   };
 };

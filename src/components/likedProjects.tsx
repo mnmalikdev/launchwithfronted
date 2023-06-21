@@ -84,7 +84,7 @@ const LikedProjects = () => {
               >
                 <Request
                   title={project?.name}
-                  // replace later with username
+                  projectId={project?.projectId}
                   userName={project?.projectOwner?.userName}
                   profilePicUrl={project?.projectOwner?.profileImageUrl}
                   description={project?.basicInfo}

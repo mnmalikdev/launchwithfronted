@@ -56,6 +56,7 @@ const Discovery = () => {
               profileBio: `${userProfileData?.bio}`,
               skills: userProfileData?.skills,
               email: userProfileData?.email,
+              portfolioImages: userProfileData?.portfolioUrls,
             }}
           />
         </div>

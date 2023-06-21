@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { TiEdit } from "react-icons/ti";
 import InterestedContributer from "./interestedContributer";
 import Modal from "./modal";
+import { MdDelete } from "react-icons/md";
 
 interface Props {
   displayViewModal: boolean;
   toggleViewProjectModal: () => void;
-  projectId?: string;
+  projectId?: any;
 }
 
 const EditProjectForm: FC<Props> = ({
@@ -17,17 +18,9 @@ const EditProjectForm: FC<Props> = ({
   toggleViewProjectModal,
   projectId,
 }) => {
-  const {
-    projects,
-    isLoading,
-    handleCreateProjectSubmit,
-    convertTimeStampToDate,
-  } = useProjects();
+  const { convertTimeStampToDate } = useProjects();
   const [editMode, setEditMode] = useState(false);
   const {
-    handleSubmit,
-    reset,
-    control,
     register,
     getValues,
     formState: { errors },
@@ -226,7 +219,7 @@ const EditProjectForm: FC<Props> = ({
                   : "focus:bg-white focus:border-gray-500"
               } border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none bg-white `}
               disabled={!editMode}
-              defaultValue={selectedProject.moreInfo}
+              defaultValue={selectedProject?.moreInfo}
               {...register("moreInfo")}
             />
           </div>
@@ -235,18 +228,39 @@ const EditProjectForm: FC<Props> = ({
             <h2 className="text-2xl text-greendark font-semibold ">
               Interested Contributers
             </h2>
-            {selectedProject?.contributerInProjects?.map(
-              (contributerInProjects) => {
-                return (
-                  <InterestedContributer
-                    key={contributerInProjects?.userId}
-                    userId={contributerInProjects?.userId}
-                    email={contributerInProjects?.email}
-                    imgUrl={contributerInProjects?.profileImageUrl}
-                    userName={contributerInProjects?.userName}
+            {selectedProject?.contributerInProjects?.length < 1 ? (
+              <div className="flex flex-col  justify-center">
+                <div className=" flex flex-col justify-center items-center h-full">
+                  <img
+                    width={350}
+                    height={350}
+                    src="/icons/no-contributer.svg"
+                    alt="filter-icon"
+                    className=" my-9"
                   />
-                );
-              }
+                  <p className="text-2xl text-orangedark">
+                    No Contributers Added Yet !
+                  </p>
+                </div>
+              </div>
+            ) : (
+              selectedProject?.contributerInProjects?.map(
+                (contributerInProjects) => {
+                  return (
+                    <div className="flex flex-row">
+                      {selectedProject?.contributerInProjects?.length ?? 2}
+                      <InterestedContributer
+                        key={contributerInProjects?.userId}
+                        userId={contributerInProjects?.userId}
+                        email={contributerInProjects?.email}
+                        imgUrl={contributerInProjects?.profileImageUrl}
+                        userName={contributerInProjects?.userName}
+                        projectId={selectedProject?.projectId}
+                      />
+                    </div>
+                  );
+                }
+              )
             )}
           </div>
         </div>

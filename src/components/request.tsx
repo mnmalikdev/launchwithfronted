@@ -11,6 +11,7 @@ import {
 } from "react-icons/bs";
 import Loader from "./loader";
 import Modal from "./modal";
+import { ToastContainer } from "react-toastify";
 interface Request {
   projectId?: any;
   userName: string;
@@ -74,6 +75,8 @@ const Request: FC<Request> = ({
 
   return (
     <div className="flex flex-col bg-white rounded-lg p-4 shadow-lg w-11/12 md:w-full lg:w-3/4">
+      <ToastContainer />
+
       <div className="flex flex-row gap-1" onClick={onProfilePreview}>
         <img
           src={profilePicUrl}

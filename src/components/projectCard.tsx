@@ -15,12 +15,14 @@ interface Props {
   category?: string;
   startDate?: any;
   onClick?: () => void;
+  collabRequests?: any;
 }
 
 const ProjectCard: React.FC<Props> = ({
   projectId,
   title,
   category,
+  collabRequests,
   startDate,
   stage,
   onClick,
@@ -33,6 +35,7 @@ const ProjectCard: React.FC<Props> = ({
     fetchUserProjects,
     projects,
     acceptContributerRequest,
+    declineCollabRequest: deleteCollabRequest,
   } = useProjects();
 
   const handleMouseEnter = () => {
@@ -55,7 +58,6 @@ const ProjectCard: React.FC<Props> = ({
       projectId: projectId,
       userId: userId,
     };
-    console.log("oo=>", formData);
     await acceptContributerRequest(formData);
     await fetchUserProjects();
     toggleContributorModal();
@@ -121,11 +123,23 @@ const ProjectCard: React.FC<Props> = ({
           <p className="text-3xl text-primary">Contributer Requests</p>
           <p>Requests:{projects?.length}</p>
 
-          {projects?.map((project) => {
-            {
-              console.log("projectwaaa shambhavi", project);
-            }
-            return project?.collabRequests?.map((request: any, idx: number) => {
+          {collabRequests?.length < 1 ? (
+            <div className="flex flex-col  justify-center">
+              <div className=" flex flex-col justify-center items-center h-full">
+                <img
+                  width={350}
+                  height={350}
+                  src="/icons/no-collab-request.svg"
+                  alt="filter-icon"
+                  className=" my-9"
+                />
+                <p className="text-2xl text-orangedark">
+                  No Collaboration Requests Yet !
+                </p>
+              </div>
+            </div>
+          ) : (
+            collabRequests?.map((request: any, idx: number) => {
               return (
                 <div key={idx} className="flex flex-col w-full ">
                   <div className="flex flex-row gap-1 items-center">
@@ -153,22 +167,29 @@ const ProjectCard: React.FC<Props> = ({
                     <button
                       onClick={() => {
                         handleAcceptContributerRequest(
-                          project?.projectId,
+                          projectId ?? "",
                           request?.collabRequestedBy?.userId
                         );
+                        deleteCollabRequest(request?.collabRequestId);
                       }}
                       className="bg-primary text-white py-2 px-4  mt-2 hover:bg-secondary focus:outline-none w-2/12 rounded-md"
                     >
                       <p className="text-white">Accept Request</p>
                     </button>
-                    <button className="bg-red-500 text-white py-2 px-4  mt-2 hover:bg-red-700 focus:outline-none w-2/12 rounded-md">
+                    <button
+                      onClick={() => {
+                        console.log("sexy shambhavi ah ", request);
+                        deleteCollabRequest(request?.collabRequestId);
+                      }}
+                      className="bg-red-500 text-white py-2 px-4  mt-2 hover:bg-red-700 focus:outline-none w-2/12 rounded-md"
+                    >
                       <p className="text-white">Decline Request</p>
                     </button>
                   </div>
                 </div>
               );
-            });
-          })}
+            })
+          )}
         </div>
       </Modal>
 

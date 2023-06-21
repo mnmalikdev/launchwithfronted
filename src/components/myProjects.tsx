@@ -133,6 +133,7 @@ const MyProjects = () => {
             industry={project?.industry}
             category={project?.category}
             startDate={convertTimeStampToDate(project?.startDate)}
+            collabRequests={project?.collabRequests}
             onClick={toggleViewProjectModal}
           />
         </button>
@@ -359,18 +360,39 @@ const MyProjects = () => {
               <h2 className="text-2xl text-greendark font-semibold ">
                 Interested Contributers
               </h2>
-              {selectedProject?.contributerInProjects?.map(
-                (contributerInProjects) => {
-                  return (
-                    <InterestedContributer
-                      key={contributerInProjects?.userId}
-                      userId={contributerInProjects?.userId}
-                      email={contributerInProjects?.email}
-                      imgUrl={contributerInProjects?.profileImageUrl}
-                      userName={contributerInProjects?.userName}
+              {selectedProject?.contributerInProjects?.length < 1 ? (
+                <div className="flex flex-col  justify-center">
+                  <div className=" flex flex-col justify-center items-center h-full">
+                    <img
+                      width={250}
+                      height={250}
+                      src="/icons/no-contributer.svg"
+                      alt="filter-icon"
+                      className=" my-9"
                     />
-                  );
-                }
+                    <p className="text-2xl text-orangedark">
+                      No Contributers Added Yet !
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                selectedProject?.contributerInProjects?.map(
+                  (contributerInProjects) => {
+                    return (
+                      <div className="flex flex-row">
+                        {selectedProject?.contributerInProjects?.length ?? 2}
+                        <InterestedContributer
+                          key={contributerInProjects?.userId}
+                          userId={contributerInProjects?.userId}
+                          email={contributerInProjects?.email}
+                          imgUrl={contributerInProjects?.profileImageUrl}
+                          userName={contributerInProjects?.userName}
+                          projectId={selectedProject?.projectId}
+                        />
+                      </div>
+                    );
+                  }
+                )
               )}
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 interface ProfileData {
   name: string;
@@ -8,6 +8,7 @@ interface ProfileData {
   profileBio: string;
   email: string;
   skills: any[];
+  portfolioImages?: any;
 }
 
 interface Props {
@@ -15,18 +16,34 @@ interface Props {
 }
 
 const ProfilePreview: FC<Props> = ({ profileData }) => {
+  const uniqueSkills = Array.from(
+    new Set(profileData?.skills?.map((skill) => skill.subcategory))
+  );
+
   return (
     <div className="flex flex-col bg-white rounded-lg p-6 shadow-lg w-11/12 md:w-full lg:w-3/4">
       {/* basic profile details section */}
       {/* replace with dynamic data later */}
       <div className=" flex flex-row">
         <div className="flex flex-row gap-1">
-          <img src={profileData?.profilePic} width={70} height={70} alt="profile-pic-url" className=" rounded-full" />
+          <img
+            src={profileData?.profilePic}
+            width={70}
+            height={70}
+            alt="profile-pic-url"
+            className=" rounded-full"
+          />
           <span className=" flex justify-center flex-col">
-            <p className=" text-base text-greendark">{profileData.name ?? "Edward Hue"}</p>
+            <p className=" text-base text-greendark">
+              {profileData.name ?? "Edward Hue"}
+            </p>
             <span className="flex flex-row gap-4">
-              <p className="text-sm text-greendark">{profileData.major ?? "NeuroScience"}</p>
-              <p className="text-sm  text-greendark">{profileData.jobTitle ?? "Research Associate"} </p>
+              <p className="text-sm text-greendark">
+                {profileData.major ?? "NeuroScience"}
+              </p>
+              <p className="text-sm  text-greendark">
+                {profileData.jobTitle ?? "Research Associate"}{" "}
+              </p>
             </span>
           </span>
         </div>
@@ -39,21 +56,50 @@ const ProfilePreview: FC<Props> = ({ profileData }) => {
         </p>
       </div>
       <h2 className=" text-greendark text-xl font-bold ">Email</h2>
-      <p className="text-lg text-greendark font-bold my-1">{profileData.email}</p>
+      <p className="text-lg text-greendark font-bold my-1">
+        {profileData.email}
+      </p>
       {/* skills */}
-      <h2 className=" text-greendark text-xl font-bold my-3 ">Skills I Have</h2>
-      <div className="flex flex-wrap gap-2 my-2">
-        {profileData?.skills?.map((skill, idx) => {
-          return (
-            <p key={idx} className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm">
-              {skill?.subcategory}
-            </p>
-          );
-        })}
-      </div>
 
-      <h2 className=" text-greendark text-xl font-bold ">Portfolio</h2>
-      <div className="flex w-full flex-row mt-2"></div>
+      <div className="flex flex-wrap gap-2 my-2">
+        <div className="flex flex-col bg-white rounded-lg p-6 shadow-lg w-11/12 md:w-full lg:w-3/4">
+          {/* ...rest of the component code... */}
+          <h2 className="text-greendark text-xl font-bold my-3">
+            Skills I Have
+          </h2>
+          <div className="flex flex-wrap gap-2 my-2">
+            {uniqueSkills.map((skill, idx) => {
+              return (
+                <p
+                  key={idx}
+                  className="text-greendark text-md font-semibold cursor-pointer rounded-full px-4 py-1 bg-primary shadow-sm"
+                >
+                  {skill}
+                </p>
+              );
+            })}
+          </div>
+          <h2 className=" text-greendark text-xl font-bold ">Portfolio</h2>
+          <div className="flex w-full flex-wrap gap-4 mt-4">
+            {JSON.parse(profileData?.portfolioImages).map(
+              (portfolioUrl: any) => {
+                return (
+                  <div
+                    key={portfolioUrl}
+                    className="flex flex-wrap  aspect-w-4 aspect-h-3 gap-3 "
+                  >
+                    <img
+                      src={portfolioUrl}
+                      alt="no-img"
+                      className="object-contain max-w-lg max-h-96  "
+                    />
+                  </div>
+                );
+              }
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
